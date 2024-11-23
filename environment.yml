@@ -13,7 +13,7 @@ dependencies:
   - jupyterlab
   - vegafusion==1.6.9
   - vl-convert-python>=1.6.0
-  - matplotlib
+  - matplotlib>=3.2.2
 
   - pip:
     - altair_ally>=0.1.1 
