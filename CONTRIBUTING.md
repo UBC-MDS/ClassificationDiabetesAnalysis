@@ -1,32 +1,80 @@
 # Contributing to the Diabetes Predictor project
 
-This outlines how to propose a change to the Breast Cancer Predictor project. 
+We welcome any input, feedback, bug reports, and contributions via [Diabetes Predictor Py GitHub Repository](https://github.com/UBC-MDS/diabetes_predictor_py). Your participation helps improve this project and ensures its continued success.
 
-## Fixing typos
+All contributions, suggestions, and feedback are accepted under the [Project's license](./LICENSE). By contributing, you represent that you own or have the authority to submit the contribution under the [Project's license](./LICENSE). All feedback, suggestions, or contributions are not confidential. The project abides by the [UBC-MDS Code of Conduct](https://github.com/UBC-MDS/.github/blob/main/CODE_OF_CONDUCT.md).
 
-Small typos or grammatical errors in documentation may be edited directly using
-the GitHub web interface, so long as the changes are made in the _source_ file.
+## How To Contribute Code to Diabetes Predictor Py
 
-*  YES: you edit a markdown cell or docstring in a `.ipynb` Jupyter notebook.
-*  NO: you edit a rendered file such as files with extensions `.md` `.html`.
+### Setting Up Your Environment
 
-## Prerequisites
+To contribute, you must first be invited by the administrators of the [UBC-MDS GitHub organization](https://github.com/UBC-MDS). Once you have access:
 
-Before you make a substantial pull request, you should always file an issue and
-make sure someone from the team agrees that it's a problem. If you've found a
-bug, create an associated issue and illustrate the bug with a minimal 
-[reprex](https://www.tidyverse.org/help/#reprex).
+1. **Clone the Repository**  
+   Fork the `diabetes_predictor_py` repository on GitHub, then clone your fork to your local machine. For more details on forking, see the [GitHub Documentation](https://help.github.com/en/articles/fork-a-repo).
 
-## Pull request process
+   ```bash
+   git clone https://github.com/YOUR-USERNAME/diabetes_predictor_py.git
+   ```
 
-*  We recommend that you create a Git branch for each pull request (PR).  
-*  New code should follow the tidyverse [style guide](http://style.tidyverse.org) or PEP8 [style guide](https://www.python.org/dev/peps/pep-0008/).
+2. **Set Up Your Environment**  
+   The project includes both `conda-lock.yml` and `environment.yml` files for managing dependencies. Use `conda` to set up your environment:
 
-## Code of Conduct
+   ```bash
+   conda env create -f environment.yml
+   conda activate diabetes_predictor_py
+   ```
 
-Please note that this project is released with a [Contributor Code of
-Conduct](https://github.com/UBC-MDS/diabetes_predictor_py/blob/main/CODE_OF_CONDUCT.md). By participating in this project you agree to
-abide by its terms.
+   Alternatively, use `conda-lock` if required for environment replication:
 
-## Attribution
-These contributing guidelines were adapted from the [dplyr contributing guidelines](https://github.com/tidyverse/dplyr/blob/master/.github/CONTRIBUTING.md).
+   ```bash
+   conda-lock install --name diabetes_predictor_py
+   ```
+
+3. **Sync Your Fork**  
+   To keep your fork up-to-date with changes in the main repository, use the [fetch upstream button on GitHub](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/working-with-forks/syncing-a-fork).
+
+### Creating a Branch
+
+Before making changes, create a new branch for your work:
+
+```bash
+git switch -c <your-branch-name>
+```
+
+With this branch checked out, make the desired changes to the project.
+
+### Creating a Pull Request
+
+When you're ready to submit your changes:
+
+1. **Commit Your Changes**  
+   Add and commit your changes to the new branch:
+
+   ```bash
+   git add <modified-files>
+   git commit -m "Descriptive message about your changes"
+   git push origin <your-branch-name>
+   ```
+
+2. **Submit a Pull Request**  
+   Go to the GitHub repository page and create a pull request (PR) from your branch to the main repository. Follow these steps:
+   - Provide a clear description of the changes you made and their purpose.
+   - Tag an administrator as a reviewer to ensure your PR is reviewed promptly.
+
+   For detailed instructions, refer to [Creating a Pull Request](https://help.github.com/en/articles/creating-a-pull-request).
+
+3. **Communicate in the Pull Request**  
+   Use the PR discussion thread to communicate with reviewers and collaborators. Respond to feedback and push updates to your branch as needed.
+
+### Getting Your PR Merged
+
+After submitting your PR, reviewers may provide feedback or request changes. Make the necessary updates in your branch and push the changes to automatically update the PR. Once your PR is approved, it will be merged into the main branch.
+
+## Additional Notes
+
+- Please follow existing code style and conventions in the project.
+- Update relevant documentation (if applicable) as part of your PR.
+- Ensure new features are thoroughly tested and maintain existing functionality.
+
+Thank you for contributing to Diabetes Predictor Py! Your efforts help make this project better for everyone.
