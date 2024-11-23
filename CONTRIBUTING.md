@@ -69,7 +69,7 @@ When you're ready to submit your changes:
 
 ### Getting Your PR Merged
 
-After submitting your PR, reviewers may provide feedback or request changes. Make the necessary updates in your branch and push the changes to automatically update the PR. Once your PR is approved, it will be merged into the main branch.
+After submitting your Pull Request (PR), reviewers may provide feedback or request changes. Make the necessary updates in your branch and push the changes to automatically update the PR. Once your PR is approved, you will be able to merge it into the main branch.
 
 ## Additional Notes
 
@@ -77,4 +77,4 @@ After submitting your PR, reviewers may provide feedback or request changes. Mak
 - Update relevant documentation (if applicable) as part of your PR.
 - Ensure new features are thoroughly tested and maintain existing functionality.
 
-Thank you for contributing to Diabetes Predictor Py! Your efforts help make this project better for everyone.
+Thank you for contributing to Diabetes Predictor Py! Your efforts help make this project better for everyone :) 
