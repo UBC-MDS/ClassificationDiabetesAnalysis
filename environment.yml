@@ -1,4 +1,4 @@
-name: "diabetes"
+name: "diabetes_predictor"
 
 channels:
   - conda-forge
