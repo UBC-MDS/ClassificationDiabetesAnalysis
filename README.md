@@ -12,7 +12,7 @@ The data set that was used for the analysis of this project was created by Jack 
 
 ## Report
 
-The final report can be found [here](https://github.com/UBC-MDS/diabetes_predictor_py/tree/main/analysis).
+The final report can be found [here](https://github.com/UBC-MDS/diabetes_predictor_py/tree/main/analysis) or [this webpage](https://ubc-mds.github.io/diabetes_predictor_py/).
 
 ## Usage
 
