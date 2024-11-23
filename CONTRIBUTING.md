@@ -44,14 +44,6 @@ git switch -c <your-branch-name>
 
 With this branch checked out, make the desired changes to the project.
 
-### Testing Your Changes
-
-Before submitting your changes, run the test suite to ensure everything works as expected. Make sure all existing tests pass and add new tests if necessary:
-
-```bash
-pytest
-```
-
 ### Creating a Pull Request
 
 When you're ready to submit your changes:
