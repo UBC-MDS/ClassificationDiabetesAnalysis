@@ -43,7 +43,7 @@ Next, under the "Kernel" menu click "Restart Kernel and Run All Cells...".
 
 ## License
 
-The Breast Cancer Predictor report contained herein are licensed under the [Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0) License](https://creativecommons.org/licenses/by-nc-nd/4.0/) See the [license file](https://github.com/UBC-MDS/diabetes_predictor_py/blob/main/LICENSE.md) for more information. If re-using/re-mixing please provide attribution and link to this webpage. The software code contained within this repository is licensed under the [MIT license](https://opensource.org/license/MIT). See the [license file](https://github.com/UBC-MDS/diabetes_predictor_py/blob/main/LICENSE.md) for more information.
+The Diabetes Predictor report contained herein are licensed under the [Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0) License](https://creativecommons.org/licenses/by-nc-nd/4.0/) See the [license file](https://github.com/UBC-MDS/diabetes_predictor_py/blob/main/LICENSE.md) for more information. If re-using/re-mixing please provide attribution and link to this webpage. The software code contained within this repository is licensed under the [MIT license](https://opensource.org/license/MIT). See the [license file](https://github.com/UBC-MDS/diabetes_predictor_py/blob/main/LICENSE.md) for more information.
 
 ## Reference
 
