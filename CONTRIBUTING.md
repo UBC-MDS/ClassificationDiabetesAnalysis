@@ -1,4 +1,4 @@
-# Contributing
+# Contributing to the Diabetes Predictor project
 
 We welcome any input, feedback, bug reports, and contributions via [Diabetes Predictor Py GitHub Repository](https://github.com/UBC-MDS/diabetes_predictor_py). Your participation helps improve this project and ensures its continued success.
 
