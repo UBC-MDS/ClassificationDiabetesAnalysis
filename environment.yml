@@ -6,15 +6,15 @@ channels:
   
 dependencies:
   - python=3.12
-  - numpy
-  - pandas
-  - scikit-learn
-  - altair
-  - jupyterlab
+  - numpy=2.1.3
+  - pandas=2.2.3
+  - scikit-learn=1.5.2
+  - altair=5.5.0
+  - jupyterlab=4.3.1
   - vegafusion==1.6.9
-  - vl-convert-python>=1.6.0
-  - matplotlib>=3.2.2
-
+  - vl-convert-python=1.7.0
+  - matplotlib=3.9.2
+  - pandera=0.21.0
+  - pip
   - pip:
-    - altair_ally>=0.1.1 
-  
+    - altair_ally==0.1.1
