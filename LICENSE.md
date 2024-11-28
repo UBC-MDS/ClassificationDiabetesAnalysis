@@ -4,14 +4,14 @@
 
 Copyright (c) 2024
 
-This report (source contained in the [`diabetes_predictor_py` repository](https://github.com/UBC-MDS/diabetes_predictor_py/tree/main/analysis)) is made available under the **Attribution-NonCommercial-ShareAlike 4.0 International** ([CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/)). 
+This report (sourced from [`diabetes_predictor_py` repository](https://github.com/UBC-MDS/diabetes_predictor_py/tree/main/analysis)) is made available under the **Attribution-NonCommercial-ShareAlike 4.0 International** ([CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/)). 
 
 This is a human-readable summary of (and not a substitute for) the [license](https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode).
 
 ## You are free to:
 
-- **Share** — copy and redistribute the material in any medium or format
-- **Adapt** — remix, transform, and build upon the material
+- **Share** — copy and redistribute the material in any medium or format.
+- **Adapt** — remix, transform, and build upon the material.
 
 The licensor cannot revoke these freedoms as long as you follow the license terms.
 

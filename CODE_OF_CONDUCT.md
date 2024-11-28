@@ -28,10 +28,10 @@ Participants who engage in unacceptable behavior may face the following conseque
 ## Procedure for Reporting and Dealing with Unacceptable Behavior
 If you witness or experience behavior that violates this Code of Conduct, please report it as follows:
 1. Contact any member of the project team directly via email or through the project's communication platform.
-2. Alternatively, report the incident to yuci21st@student.ubc.ca. Reports will be handled with discretion and confidentiality.
+2. Alternatively, report the incident to yuci21st@student.ubc.ca. All reports will be managed with utmost discretion and confidentiality.
 
 When reporting an incident, please provide the following details:
-- Your name and contact information (optional but encouraged).
+- Your name and contact information (optional, but providing them is encouraged).
 - A description of the incident, including time, location, and involved parties.
 - Any additional context or evidence to help us understand the situation.
 
