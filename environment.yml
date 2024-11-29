@@ -17,7 +17,7 @@ dependencies:
   - pandera=0.21.0
   - conda-lock=2.5.7
   - mamba=1.5.11
-
-  - pip:
-    - altair_ally==0.1.1
-    - deepchecks==0.18.1
+  - pip
+#  - pip:
+#    - altair_ally==0.1.1
+#    - deepchecks==0.18.1
