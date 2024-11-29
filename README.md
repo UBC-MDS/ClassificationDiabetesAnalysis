@@ -58,8 +58,8 @@ cd <diabetes_predictor_py>
 
 1. Set up the Conda environment and run JupyterLab using the provided script:
    ```bash
-   chmod +x ./builders/magic_builder.sh
-   ./builders/magic_builder.sh
+   chmod +x ./builders/conda_magic_builder.sh
+   ./builders/conda_magic_builder.sh
    ```
 
 2. Open:
