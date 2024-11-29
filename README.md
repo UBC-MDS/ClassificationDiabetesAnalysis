@@ -14,23 +14,73 @@ The data set that was used for the analysis of this project was created by Jack 
 
 The final report can be found [here](https://github.com/UBC-MDS/diabetes_predictor_py/tree/main/analysis) or [this webpage](https://ubc-mds.github.io/diabetes_predictor_py/).
 
-## Usage
+# Usage
 
-First time running the project, run the following from the root of this repository:
+To replicate this analysis, follow the steps below. You can run the analysis using one of two methods: **Docker** or **Conda**.
 
-```
-conda-lock install --name diabetes-predictor conda-lock.yml
-```
-
-To run the analysis, run the following from the root of this repository:
-
-```
-jupyter lab 
+## Step 1: Clone the Repository
+First, clone this GitHub repository and navigate to its root directory:
+```bash
+git clone <https://github.com/UBC-MDS/diabetes_predictor_py.git>
+cd <diabetes_predictor_py>
 ```
 
-Open `analysis/diabetes_analysis.ipynb` in Jupyter Lab and under Switch/Select Kernel choose "Python [conda env:diabetes-predictor]".
+---
 
-Next, under the "Kernel" menu click "Restart Kernel and Run All Cells...".
+## Option 1: Using Docker
+
+**Prerequisites**: Install [Docker](https://www.docker.com/get-started) and ensure it is running on your system.
+
+1. Build and run the Docker container using the provided script:
+   ```bash
+   chmod +x ./builders/docker_magic_builder.sh
+   ./builders/docker_magic_builder.sh
+   ```
+   This will set up the Conda environment inside a Docker container and build the Docker image.
+
+2. Once the container is running, access the server by opening the link shown in the terminal (e.g., http://127.0.0.1:8888/lab?token={your_token})
+
+3. Open the JupyterLab link generated in the terminal. Navigate to:
+   ```
+   analysis/diabetes_analysis.ipynb
+   ```
+
+4. Under the **Kernel** menu, click:
+   ```
+   Restart Kernel and Run All Cells...
+   ```
+
+---
+
+## Option 2: Using Conda
+
+**Prerequisites**: Install [Conda Forge](https://conda-forge.org/download/).
+
+1. Set up the Conda environment and run JupyterLab using the provided script:
+   ```bash
+   chmod +x ./builders/magic_builder.sh
+   ./builders/magic_builder.sh
+   ```
+
+2. Open:
+   ```
+   analysis/diabetes_analysis.ipynb
+   ```
+
+3. Under **Switch/Select Kernel**, choose:
+   ```
+   Python [conda env:diabetes_predictor]
+   ```
+
+4. Under the **Kernel** menu, click:
+   ```
+   Restart Kernel and Run All Cells...
+   ```
+
+---
+
+These steps ensure you can run the analysis seamlessly using either Docker or Conda.
+
 
 ## Dependencies
 
