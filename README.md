@@ -14,7 +14,7 @@ The data set that was used for the analysis of this project was created by Jack 
 
 The final report can be found [here](https://github.com/UBC-MDS/diabetes_predictor_py/tree/main/analysis) or [this webpage](https://ubc-mds.github.io/diabetes_predictor_py/).
 
-# Usage
+## Usage
 
 To replicate this analysis, follow the steps below. You can run the analysis using one of two methods: **Docker** or **Conda**.
 
@@ -27,7 +27,7 @@ cd <diabetes_predictor_py>
 
 ---
 
-## Option 1: Using Docker
+### Option 1: Using Docker
 
 **Prerequisites**: Install [Docker](https://www.docker.com/get-started) and ensure it is running on your system.
 
@@ -52,7 +52,7 @@ cd <diabetes_predictor_py>
 
 ---
 
-## Option 2: Using Conda
+### Option 2: Using Conda
 
 **Prerequisites**: Install [Conda Forge](https://conda-forge.org/download/).
 
