@@ -1,4 +1,4 @@
-2024-11-28 18:01:42,372 - 
+2024-11-28 22:10:50,152 - 
 {
   "DATA": {
     "DATAFRAME_CHECK": [
@@ -7,6 +7,18 @@
         "column": "Pregnancies",
         "check": "in_range(0, 15)",
         "error": "Column 'Pregnancies' failed element-wise validator number 0: in_range(0, 15) failure cases: 17"
+      },
+      {
+        "schema": null,
+        "column": "Glucose",
+        "check": "in_range(50, 240)",
+        "error": "Column 'Glucose' failed element-wise validator number 0: in_range(50, 240) failure cases: 44, 0, 0, 0, 0, 0"
+      },
+      {
+        "schema": null,
+        "column": "BloodPressure",
+        "check": "in_range(40, 180)",
+        "error": "Column 'BloodPressure' failed element-wise validator number 0: in_range(40, 180) failure cases: 0, 0, 30, 0, 0, 0, 0, 30, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 24, 38, 0, 0, 0, 0, 0, 0, 0"
       },
       {
         "schema": null,
