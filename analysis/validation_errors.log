@@ -1,0 +1,31 @@
+2024-11-28 18:01:42,372 - 
+{
+  "DATA": {
+    "DATAFRAME_CHECK": [
+      {
+        "schema": null,
+        "column": "Pregnancies",
+        "check": "in_range(0, 15)",
+        "error": "Column 'Pregnancies' failed element-wise validator number 0: in_range(0, 15) failure cases: 17"
+      },
+      {
+        "schema": null,
+        "column": "SkinThickness",
+        "check": "in_range(0, 80)",
+        "error": "Column 'SkinThickness' failed element-wise validator number 0: in_range(0, 80) failure cases: 99"
+      },
+      {
+        "schema": null,
+        "column": "Insulin",
+        "check": "in_range(0, 800)",
+        "error": "Column 'Insulin' failed element-wise validator number 0: in_range(0, 800) failure cases: 846"
+      },
+      {
+        "schema": null,
+        "column": "BMI",
+        "check": "in_range(0, 65)",
+        "error": "Column 'BMI' failed element-wise validator number 0: in_range(0, 65) failure cases: 67.1"
+      }
+    ]
+  }
+}
