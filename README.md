@@ -18,11 +18,13 @@ The final report can be found [here](https://github.com/UBC-MDS/diabetes_predict
 
 To replicate this analysis, follow the steps below. You can run the analysis using one of two methods: **Docker** or **Conda**.
 
+**Prerequisites**: Please note that the instructions in this section require executing them in a Unix-based shell.
+
 ## Step 1: Clone the Repository
 First, clone this GitHub repository and navigate to its root directory:
 ```bash
-git clone <https://github.com/UBC-MDS/diabetes_predictor_py.git>
-cd <diabetes_predictor_py>
+git clone https://github.com/UBC-MDS/diabetes_predictor_py.git
+cd diabetes_predictor_py
 ```
 
 ---
@@ -53,8 +55,6 @@ cd <diabetes_predictor_py>
 ---
 
 ### Option 2: Using Conda
-
-**Prerequisites**: Install [Conda Forge](https://conda-forge.org/download/).
 
 1. Set up the Conda environment and run JupyterLab using the provided script:
    ```bash
