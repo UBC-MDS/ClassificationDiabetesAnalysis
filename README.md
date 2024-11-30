@@ -6,9 +6,21 @@ Inder Khera, Jenny Zhang, Jessica Kuo, Javier Martinez (alphabetically ordered)
 
 ## About
 
-In this study, we aim to develop a classification model using the logistic regression (LR) algorithm to predict whether a patient is expected to have diabetes or not. Our final model performed decent on an unseen test dataset, achieving an overall accuracy of 0.80. Out of 231 test cases, the model correctly identified 185. However, it made 46 incorrect predictions, of which, 15 are false positives — incorrectly classifying non-diabetic subjects to diabetic- and 31 are false negatives - fail to diagnose diabetes when the patient is actually diabetic. Such errors could either lead to unnecessary treatment or delayed treatment, with the latter having more serious consequences, so we recommend further refinement of the model before it is deployed for clinical use.
+In this study, we aim to develop a classification model using the logistic regression (LR) algorithm to predict whether a patient is expected to have diabetes or not. 
+Our final model performed decent on an unseen test dataset, achieving an overall accuracy of 0.75. Out of 218 test cases, the model correctly identified 164. 
+However, it made 46 incorrect predictions, of which, 19 are false positives — incorrectly classifying non-diabetic subjects to diabetic- 
+and 35 are false negatives - fail to diagnose diabetes when the patient is actually diabetic. 
+Such errors could either lead to unnecessary treatment or delayed treatment, with the latter having more serious consequences, 
+so we recommend further refinement of the model before it is deployed for clinical use.
 
-The data set that was used for the analysis of this project was created by Jack W Smith, JE Everhart, WC Dickson, WC Knowler, RS Johannes. The data set was sourced from the National Library of Medicine database from the National Institues of Health. Access to their respective analysis can be found [here](https://pmc.ncbi.nlm.nih.gov/articles/PMC2245318/) and access to the dataset can be found via [kaggle](https://www.kaggle.com/datasets/uciml/pima-indians-diabetes-database/data) (Dua & Graff,2017). Each row/obersvation from the dataset is an individual that identifies to be a part of the Pima (also known as The Akimel O'odham) Indeginous group, located mainly in the Central and Southern regions of the United States. Each observation recorded has summary statistics regarding features that include the Age, BMI, Blood Pressure, Number of Pregnancies, as well as The Diabetes Pedigree Function (which is a score that gives an idea about how much correlation is between person with diabetes and their family history).
+The data set that was used for the analysis of this project was created by Jack W Smith, JE Everhart, WC Dickson, WC Knowler, RS Johannes. 
+The data set was sourced from the National Library of Medicine database from the National Institues of Health. 
+Access to their respective analysis can be found [here](https://pmc.ncbi.nlm.nih.gov/articles/PMC2245318/) 
+and access to the dataset can be found via [kaggle](https://www.kaggle.com/datasets/uciml/pima-indians-diabetes-database/data) (Dua & Graff,2017). 
+Each row/obersvation from the dataset is an individual that identifies to be a part of the Pima (also known as The Akimel O'odham) Indeginous group, 
+located mainly in the Central and Southern regions of the United States. 
+Each observation recorded has summary statistics regarding features that include the Age, BMI, Blood Pressure, Number of Pregnancies, 
+as well as The Diabetes Pedigree Function (which is a score that gives an idea about how much correlation is between person with diabetes and their family history).
 
 ## Report
 
