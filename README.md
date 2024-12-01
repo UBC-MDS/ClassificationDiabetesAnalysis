@@ -32,7 +32,8 @@ To replicate this analysis, follow the steps below. You can run the analysis usi
 
 **Prerequisites**: Please note that the instructions in this section require executing them in a Unix-based shell.
 
-## Step 1: Clone the Repository
+### Setup
+
 First, clone this GitHub repository and navigate to its root directory:
 ```bash
 git clone https://github.com/UBC-MDS/diabetes_predictor_py.git
@@ -93,6 +94,15 @@ cd diabetes_predictor_py
 
 These steps ensure you can run the analysis seamlessly using either Docker or Conda.
 
+---
+### Clean up
+
+1. Docker: Type `Ctrl` + `C` in the terminal where you launched the container, 
+and then type `docker compose rm` to shut down the container and clean up the resources
+
+2. Conda: Type `Ctrl` + `C` in the terminal where Jupyter Notebook is launched, 
+type `conda deactivate` to exit out of the project environment, 
+and then type `conda env remove diabetes_predictor` to delete the environment and clean up the resources
 
 ## Dependencies
 
@@ -102,6 +112,15 @@ These steps ensure you can run the analysis seamlessly using either Docker or Co
 - jupyterlab (version 4.0.0 or higher)
 - nb_conda_kernels (version 2.3.1 or higher)
 - Python and packages listed in [`environment.yml`](https://github.com/UBC-MDS/diabetes_predictor_py/blob/main/environment.yml)
+
+### Adding a new dependency
+
+1. Add the dependency to the `environment.yml` file on a new branch. 
+If the package is `pip` installed, it should also be added to `Dockerfile` with command `RUN pip install <package_name> = <version>`
+
+2. Run `conda-lock -k explicit --file environment.yml -p linux-64` to update the `conda-linux-64.lock` file.
+
+3. Re-run the scripts above using the Docker or Conda option. 
 
 ## License
 
