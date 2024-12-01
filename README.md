@@ -90,8 +90,6 @@ cd diabetes_predictor_py
    Restart Kernel and Run All Cells...
    ```
 
----
-
 These steps ensure you can run the analysis seamlessly using either Docker or Conda.
 
 ---
