@@ -11,3 +11,4 @@ services:
         limits:
           memory: 5G
     platform: linux/amd64
+    
