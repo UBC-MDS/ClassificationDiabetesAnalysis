@@ -69,7 +69,7 @@ def read_zip(url, directory):
 
 @click.command()
 @click.option('--url', type=str, help="URL of dataset to be downloaded")
-@click.option('--write_to', type=str, help="Path to directory where raw data will be written to")
+@click.option('--write-to', type=str, help="Path to directory where raw data will be written to")
 def main(url, write_to):
     """Downloads data zip data from the web to a local filepath and extracts it."""
     try:
