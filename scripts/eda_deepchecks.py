@@ -37,10 +37,10 @@ def main(validated_data, data_to, plot_to):
     and pairwise scatterplot in the training data by outcome
     and displays them as a grid of plots. Also saves the plots.'''
 
-    df = pd.read_csv(validated_data)
+    df = pd.read_csv(validated_data, index_col = 0)
 
     # EDA
-    print(df_original.shape)
+    # print(df_original.shape)
     print(df.shape)
 
     df.info()
@@ -132,7 +132,7 @@ def main(validated_data, data_to, plot_to):
     # Visualize relationships
     scatter_plot = aly.pair(train_df[features].sample(300), color='Outcome:N')
 
-    scatter_plot.save(os.path.join(plot_to, "pairwise_scatterplot.png"),
+    scatter_plot.save(os.path.join(plot_to, 'pairwise_scatterplot.png'), 
                       scale_factor=2.0)
     
     ## Deepchecks - correlation
