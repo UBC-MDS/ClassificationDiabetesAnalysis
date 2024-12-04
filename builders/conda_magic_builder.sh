@@ -2,11 +2,11 @@
 
 # Set environment name and required dependency versions
 ENV_NAME="diabetes_predictor"
-CONDA_VERSION="23.9.0"
+CONDA_VERSION="24.11.0"
 CONDA_LOCK_VERSION="2.5.7"
 MAMBA_VERSION="1.5.8"
-JUPYTERLAB_VERSION="4.0.0"
-NB_CONDA_KERNELS_VERSION="2.3.1"
+JUPYTERLAB_VERSION="4.3.2"
+NB_CONDA_KERNELS_VERSION="2.5.1"
 
 # Function to check if a command exists
 check_command() {
