@@ -47,18 +47,22 @@ fi
 # echo "Creating the Conda environment from environment.yml..."
 # conda env create --file environment.yml --name "$ENV_NAME"
 
-# Step 3: Ensure all dependencies are installed
+# Step 3: Create a conda-lock.yml file
+echo "Creating a conda-lock.yml from environment.yml across all platforms"
+conda-lock lock --file environment.yml
+
+# Step 4: Ensure all dependencies are installed
 ensure_dependency "conda" "$CONDA_VERSION"
 ensure_dependency "conda-lock" "$CONDA_LOCK_VERSION"
 ensure_dependency "mamba" "$MAMBA_VERSION"
 ensure_dependency "jupyterlab" "$JUPYTERLAB_VERSION"
 ensure_dependency "nb_conda_kernels" "$NB_CONDA_KERNELS_VERSION"
 
-# Step 4: Install dependencies using conda-lock
+# Step 5: Install environment using conda-lock
 echo "Installing environment using conda-lock..."
-conda-lock install --name "$ENV_NAME" conda-linux-64.lock
+conda-lock install --name "$ENV_NAME" conda-lock.yml
 
-# Step 5: Activate the Conda environment
+# Step 6: Activate the Conda environment
 echo "Activating the environment..."
 eval "$(conda shell.bash hook)"
 conda activate "$ENV_NAME"
