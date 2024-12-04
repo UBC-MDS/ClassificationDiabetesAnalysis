@@ -43,26 +43,26 @@ if conda env list | grep -q "^${ENV_NAME}"; then
     conda env remove --name "$ENV_NAME" --yes
 fi
 
-# Step 3: Create the Conda environment from environment.yml
-echo "Creating the Conda environment from environment.yml..."
-conda env create --file environment.yml --name "$ENV_NAME"
+# # Step 3: Create the Conda environment from environment.yml
+# echo "Creating the Conda environment from environment.yml..."
+# conda env create --file environment.yml --name "$ENV_NAME"
 
-# Step 4: Activate the Conda environment
-echo "Activating the environment..."
-eval "$(conda shell.bash hook)"
-conda activate "$ENV_NAME"
-
-# Step 5: Ensure all dependencies are installed
+# Step 3: Ensure all dependencies are installed
 ensure_dependency "conda" "$CONDA_VERSION"
 ensure_dependency "conda-lock" "$CONDA_LOCK_VERSION"
 ensure_dependency "mamba" "$MAMBA_VERSION"
 ensure_dependency "jupyterlab" "$JUPYTERLAB_VERSION"
 ensure_dependency "nb_conda_kernels" "$NB_CONDA_KERNELS_VERSION"
 
-# Step 6: Install dependencies using conda-lock
-echo "Installing dependencies using conda-lock..."
-conda-lock install --name "$ENV_NAME" conda-lock.yml
+# Step 4: Install dependencies using conda-lock
+echo "Installing environment using conda-lock..."
+conda-lock install --name "$ENV_NAME" conda-linux-64.lock
 
-# Step 7: Start JupyterLab
-echo "Starting JupyterLab..."
-jupyter lab
+# Step 5: Activate the Conda environment
+echo "Activating the environment..."
+eval "$(conda shell.bash hook)"
+conda activate "$ENV_NAME"
+
+# # Step 7: Start JupyterLab
+# echo "Starting JupyterLab..."
+# jupyter lab
