@@ -30,10 +30,10 @@ def read_zip(url, directory):
     if request.status_code != 200:
         raise ValueError('The URL provided does not exist.')
     
-    # check if the URL points to a zip file, if not raise an error  
-    #if request.headers['content-type'] != 'application/zip':
-    if filename_from_url[-4:] != '.zip':
-        raise ValueError('The URL provided does not point to a zip file.')
+    # # check if the URL points to a zip file, if not raise an error  
+    # #if request.headers['content-type'] != 'application/zip':
+    # if filename_from_url[-4:] != '.zip':
+    #     raise ValueError('The URL provided does not point to a zip file.')
     
     # check if the directory exists, if not raise an error
     if not os.path.isdir(directory):
