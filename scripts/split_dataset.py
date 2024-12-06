@@ -1,4 +1,4 @@
-# split_and_preprocess.py
+# split_dataset.py
 # author: Javier Martinez
 # date: 2024-12-05
 
@@ -13,18 +13,22 @@ import click
 @click.option('--output-dir', type=str, default="../data/processed/", help="Path to the directory where split data will be saved")
 def main(input_file, output_dir):
     """
-    Splits the processed train_df dataset into training and testing sets for modeling.
+    Splits a dataset into training and testing sets and saves the results as separate CSV files.
 
     Parameters:
-    ----------
+    -----------
     input_file : str
-        Path to the processed train_df (CSV file).
+        Path to the input CSV file containing the processed dataset.
     output_dir : str
-        Directory to save the split data.
+        Directory where the resulting split datasets (X_train, y_train, X_test, y_test) will be saved.
 
     Outputs:
     --------
-    Saves X_train, y_train, X_test, and y_test as CSV files in the specified output directory.
+    Four CSV files saved in the specified output directory:
+    - X_train.csv: Features for the training set.
+    - y_train.csv: Labels for the training set.
+    - X_test.csv: Features for the testing set.
+    - y_test.csv: Labels for the testing set.
     """
     os.makedirs(output_dir, exist_ok=True)
 

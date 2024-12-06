@@ -1,4 +1,4 @@
-# model_fitting.py
+# preprocessing_model_fitting.py
 # author: Javier Martinez
 # date: 2024-12-05
 
