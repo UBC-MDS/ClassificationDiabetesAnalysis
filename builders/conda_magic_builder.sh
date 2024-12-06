@@ -2,10 +2,10 @@
 
 # Set environment name and required dependency versions
 ENV_NAME="diabetes_predictor"
-CONDA_VERSION="23.9.0"
+CONDA_VERSION="24.11.0"
 CONDA_LOCK_VERSION="2.5.7"
-MAMBA_VERSION="1.5.8"
-JUPYTERLAB_VERSION="4.0.0"
+MAMBA_VERSION="2.0.4"
+JUPYTERLAB_VERSION="4.3.2"
 NB_CONDA_KERNELS_VERSION="2.5.1"
 
 # Function to check if a command exists
@@ -60,7 +60,6 @@ conda-lock lock --file environment.yml
 
 # Step 5: Install environment using conda-lock
 echo "Installing environment using conda-lock..."
-export CONDA_EXE=$(which conda)
 conda-lock install --name "$ENV_NAME" conda-lock.yml
 
 # Step 6: Activate the Conda environment
