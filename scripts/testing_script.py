@@ -17,14 +17,15 @@ from sklearn.pipeline import make_pipeline
 from sklearn.model_selection import GridSearchCV
 from sklearn.metrics import fbeta_score, make_scorer
 @click.command()
-@click.option('--x_train_data', type=str, help="Path to X_train data")
+@click.option('--x-train-data', type=str, help="Path to X_train data")
+@click.option('--x-test-data', type=str, help="Path to X_train data")
 @click.option('--pipeline-from', type=str, help="Path to directory where the fit pipeline object lives")
-def main(x_train_data, pipeline_from):
+def main(x_train_data, x_test_data, pipeline_from):
 
     # read in random_fit model (pipeline object)
     
     X_train = pd.read_csv(x_train_data)
-    X_test = pd.read_csv('./data/processed/X_test.csv')
+    X_test = pd.read_csv(x_test_data)
     y_test= pd.read_csv('./data/processed/y_test.csv')
 
 
