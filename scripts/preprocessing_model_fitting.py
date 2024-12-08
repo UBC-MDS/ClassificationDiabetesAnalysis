@@ -60,13 +60,13 @@ def main(processed_dir, results_dir):
     random_search = RandomizedSearchCV(
         log_pipe, param_dist, n_iter=20, n_jobs=-1, cv=5, return_train_score=True, random_state=123
     )
-    random_search.fit(X_train, y_train)
+    random_fit = random_search.fit(X_train, y_train)
 
     # Save log_pipe and random_search as pickle objects
     with open(os.path.join(results_dir, 'models', 'log_pipe.pkl'), 'wb') as f:
         pickle.dump(log_pipe, f)
-    with open(os.path.join(results_dir, 'models', 'random_search.pkl'), 'wb') as f:
-        pickle.dump(random_search, f)
+    with open(os.path.join(results_dir, 'models', 'random_fit.pkl'), 'wb') as f:
+        pickle.dump(random_fit, f)
 
 
 if __name__ == '__main__':
