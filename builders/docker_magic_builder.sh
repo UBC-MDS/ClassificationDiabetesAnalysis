@@ -29,28 +29,28 @@ ensure_dependency() {
     fi
 }
 
-# # Step 1: Check for Conda and initialize if necessary
-# check_command conda
-# if ! grep -q 'conda' <<< "$PATH"; then
-#     echo "Conda is not initialized. Initializing Conda..."
-#     conda init
-#     exec bash
-# fi
+# Step 1: Check for Conda and initialize if necessary
+check_command conda
+if ! grep -q 'conda' <<< "$PATH"; then
+    echo "Conda is not initialized. Initializing Conda..."
+    conda init
+    exec bash
+fi
 
-# # Step 2: Remove the existing environment if it exists
-# if conda env list | grep -q "^${ENV_NAME}"; then
-#     echo "Environment '${ENV_NAME}' already exists. Removing it..."
-#     conda env remove --name "$ENV_NAME" --yes
-# fi
+# Step 2: Remove the existing environment if it exists
+if conda env list | grep -q "^${ENV_NAME}"; then
+    echo "Environment '${ENV_NAME}' already exists. Removing it..."
+    conda env remove --name "$ENV_NAME" --yes
+fi
 
-# # Step 3: Create the Conda environment from environment.yml
-# echo "Creating the Conda environment from environment.yml..."
-# conda env create --file environment.yml --name "$ENV_NAME"
+# Step 3: Create the Conda environment from environment.yml
+echo "Creating the Conda environment from environment.yml..."
+conda env create --file environment.yml --name "$ENV_NAME"
 
-# # Step 4: Activate the Conda environment
-# echo "Activating the environment..."
-# eval "$(conda shell.bash hook)"
-# conda activate "$ENV_NAME"
+# Step 4: Activate the Conda environment
+echo "Activating the environment..."
+eval "$(conda shell.bash hook)"
+conda activate "$ENV_NAME"
 
 # Step 1: Ensure all dependencies are installed
 ensure_dependency "conda" "$CONDA_VERSION"
