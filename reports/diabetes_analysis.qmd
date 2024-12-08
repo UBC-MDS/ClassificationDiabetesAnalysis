@@ -62,9 +62,9 @@ import pickle
 ```{python}
 mean_cv_score=pd.read_csv("../results/tables/mean_cv_score.csv")
 with open('../results/models/log_pipe.pkl', 'rb') as f:
-    diabetes_fit = pickle.load(f)
-with open('../results/models/random_search.pkl', 'rb') as s:
-    random_search = pickle.load(s)
+    log_pipe = pickle.load(f)
+with open('../results/models/random_fit.pkl', 'rb') as s:
+    random_fit = pickle.load(s)
 ```
 
 # Summary
