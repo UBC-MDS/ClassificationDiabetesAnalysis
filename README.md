@@ -98,8 +98,6 @@ cd diabetes_predictor_py
    ```
 
 ---
-
----
 ### Clean up
 1. Docker: Type `Ctrl` + `C` in the terminal where you launched the container, 
 and then type `docker compose rm` to shut down the container and clean up the resources
