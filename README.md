@@ -116,9 +116,7 @@ and then type `docker compose rm` to shut down the container and clean up the re
 1. Add the dependency to the `environment.yml` file on a new branch. 
 If the package is `pip` installed, it should also be added to `Dockerfile` with command `RUN pip install <package_name> = <version>`
 
-2. Run `conda-lock -k explicit --file environment.yml -p linux-64` to update the `conda-linux-64.lock` file.
-
-3. Re-run the scripts above using the Docker or Conda option. 
+3. Re-run the scripts above using Docker
 
 ## License
 
