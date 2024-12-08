@@ -75,21 +75,22 @@ cd diabetes_predictor_py
     --data-to=data/processed \
     --plot-to=results/figures
 
-    python scripts/split_and_preprocess.py \
+    python scripts/split_dataset.py \
      --input-file ./data/processed/train_df.csv \
       --output-dir ./data/processed/
 
-    python scripts/model_fitting.py \
+    python scripts/preprocessing_model_fitting.py \
      --processed-dir ./data/processed/ \
      --results-dir /home/jovyan/results
 
     python scripts/testing_script.py \
      --x-train-data='./data/processed/X_train.csv' \
-      --pipeline-from=results/models/random_fit.pickle \
-       --x-test-data='./data/processed/X_test.csv' \ 
-       --y-test-data='data/processed/y_test.csv' \
-       --results-to='./results/tables' \
-       --plot-to='./results/figures'
+     --pipeline-from=results/models/random_fit.pkl \
+     --x-test-data='./data/processed/X_test.csv' \
+     --y-test-data='./data/processed/y_test.csv' \
+     --results-to='./results/tables' \
+     --plot-to='./results/figures'
+
 
    ```
 
