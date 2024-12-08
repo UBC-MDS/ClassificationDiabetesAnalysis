@@ -58,6 +58,16 @@ import json
 import logging
 ```
 
+```{python}
+#test_scores_df = pd.read_csv("../results/tables/test_scores.csv").round(2)
+#test_scores_df = test_scores_df
+#confusion_df=pd.read_csv("../results/tables/confusion_matrix.csv", index_col='class')
+#confusion_df.rename(columns={'Benign':'Predicted: Benign'}, inplace=True)
+#confusion_df.index.names = ['Actual label:']
+with open('../results/models/cancer_pipeline.pickle', 'rb') as f:
+    cancer_fit = pickle.load(f)
+```
+
 # Summary
 
 This study evaluated logistic regression for predicting diabetes in Pima Indian women using features such as glucose levels, BMI, and pregnancies. The model achieved 75% accuracy on the test set, outperforming the baseline dummy classifier's 67.20%. Glucose was the most significant predictor, followed by BMI and pregnancies, while blood pressure and insulin had weaker impacts. The model misclassified 54 cases, with 35 false negatives and 19 false positives, highlighting areas for improvement.
@@ -149,12 +159,6 @@ else:
     df = data
 ```
 
-```{python}
-df
-
-df.to_csv('../data/processed/df.csv')
-```
-
 The `shape` attribute shows us the number of observations and the number of features in the dataset
 
 ```{python}
@@ -174,43 +178,7 @@ df.info()
 
 Using the `train_test_split()` function we will split our data set with 70% going to train the model and 30% going towards testing the model.
 
-```{python}
-# Create the split
-train_df, test_df = train_test_split(df,
-                                     train_size = 0.7, 
-                                     random_state=123)
-
-df.to_csv('../data/processed/train_df.csv')
-df.to_csv('../data/processed/test_df.csv')
-```
-
 The `describe()` shows us the summary statistics of each of our features as well as our target value. We can see the mean as well as the spread (standard deviation). Using this information and the visualization tools we will see next we can determine how skewed each of our features are for their respective values.
-
-```{python}
-# Explore training data
-census_summary = train_df.describe()
-census_summary
-```
-
-```{python}
-# List features
-features = census_summary.columns.tolist()
-features
-```
-
-```{python}
-# Visualize feature distributions
-feature_histograms = alt.Chart(train_df).transform_calculate(
-).mark_bar(opacity=0.5).encode( x = alt.X(alt.repeat()).type(
-'quantitative').bin(maxbins=30), y= alt.Y('count()').stack(False),
-                               color = 'Outcome:N'
-).properties( height=250,
-width=250 ).repeat(
-features, columns=2
-)
-
-feature_histograms 
-```
 
 ![Comparison of the empirical distributions of training data predictors between those non-diabetic and diabetic.](../results/feature_histograms.png){#fig-feature_histograms width=80%}
 
@@ -226,148 +194,21 @@ For `Pregnancies`, `Insulin`, and `DiabetesPedigreeFunction` -genetic risk of di
 
 For `Blood Pressure` and `Skin Thickness`, both the Diabetic and Non-Diabetic classes approximates a normal distribution; however, the Non-Diabetic distribution skews slightly towards lower values, while the Diabetic class skews more towards higher values.
 
-```{python}
-# validate training data for class imbalance for target variable 
-# Do these on training data as part of EDA! 
-train_df_ds = Dataset(train_df, label = 'Outcome', cat_features=[])
+![Pearson and Spearman correlations across all features.](../results/correlation_heat_map.png){#fig-correlation_heat_map width=80%}
 
-check_lab_cls_imb = ClassImbalance().add_condition_class_ratio_less_than(0.4)
-check_lab_cls_imb_result = check_lab_cls_imb.run(dataset = train_df_ds)
+@fig-correlation_heat_map shows the correlation between all of the respective features. The main reasoning to analyze this is to see if there is any multicollinearity between any of the features which could be problamatic when conducting a Logistic Regression. We see that highest level of correlation is between Age and Pregnancies (`{python} 0.62` via Spearman, and `{python} 0.56` by Pearson). Since this is below the threshold of 0.7, we can conclude that all features' coefficients are suitable and will not cause any multicollinearity in our model. 
 
-if check_lab_cls_imb_result.passed_conditions():
-    raise ValueError("Class imbalance exceeds the maximum acceptable threshold.")
-```
+![Pairwise scatterplots between each of features in dataset to visualize relationship.](../results/pairwise_scatterplot.png){#fig-pairwise_scatterplot width=80%}
 
-```{python}
-# validate training data for percent of nulls
-check_pct_nulls = PercentOfNulls().add_condition_percent_of_nulls_not_greater_than(0.05)
-check_pct_nulls_result = check_pct_nulls.run(dataset = train_df_ds)
+@fig-pairwise_scatterplot illustrates the relationships between the features. For the most part, the features do not display noticeable trends. However, Skin Thickness and BMI show a moderate visual relationship, which is intuitive since higher body mass is generally associated with increased skin thickness. 
 
-if not check_pct_nulls_result.passed_conditions():
-    raise ValueError("Percent of nulls exceeds the maximum acceptable threshold for at least one column.")
-```
+Referring back to the correlation graph, Skin Thickness and BMI have a Spearman correlation of `{python} 0.44`. This value is below the multicollinearity threshold of 0.7, indicating that these features do not pose a risk of multicollinearity in our model.
 
-```{python}
-# validate training data for percent of outlier samples using loOP algo
-check_out_sample = (
-    OutlierSampleDetection(nearest_neighbors_percent = 0.01, extent_parameter = 3)
-    .add_condition_outlier_ratio_less_or_equal(max_outliers_ratio = 0.001, outlier_score_threshold = 0.9)
-)
-check_out_sample_result = check_out_sample.run(dataset = train_df_ds)
-
-if not check_out_sample_result.passed_conditions():
-    raise ValueError("Number of outlier samples exceeds the maximum acceptable threshold.")
-```
-
-```{python}
-# validate training data for data duplicates
-# set duplicate condition to 0 as would not expect any two patient with the exact same situation
-check_data_dup = DataDuplicates().add_condition_ratio_less_or_equal(0)
-check_data_dup_result = check_data_dup.run(dataset = train_df_ds)
-
-if not check_data_dup_result.passed_conditions():
-    raise ValueError("Data duplicates exceed the maximum acceptable threshold.")
-```
-
-```{python}
-# validate training data for mixed data types across all columns
-check_mix_dtype = MixedDataTypes().add_condition_rare_type_ratio_not_in_range((0.01, 0.2))
-check_mix_dtype_result = check_mix_dtype.run(dataset = train_df_ds)
-
-if not check_mix_dtype_result.passed_conditions():
-    # raise a warning instead of an error in this case
-    warnings.warn("Percentage of rare data type in dangerous zone for at least one column")
-```
-
-```{python}
-# Visualize correlations across features
-aly.corr(train_df)
-```
-
-<i>Figure 2. Pearson and Spearman correlations across all features<i>
-
-Figure 2 shows the correlation between all of the respective features. The main reasoning to analyze this is to see if there is any multicollinearity between any of the features which cou;d be problamatic when conducting a Logistic Regression. We see that highest level of correlation is between Age and Pregnancies (0.62 via Spearman, and 0.56 by Pearson). Since this is below the threshold of 0.7, we can conclude that all features' coefficients are suitable and will not cause any multicollinearity in our model. 
-
-```{python}
-# Visualize relationships
-aly.pair(train_df[features].sample(300), color='Outcome:N')
-```
-
-<i>Figure 3. Pairwise scatterplots between each of features in dataset to visualize relationship<i>
-
-Figure 3 illustrates the relationships between the features. For the most part, the features do not display noticeable trends. However, Skin Thickness and BMI show a moderate visual relationship, which is intuitive since higher body mass is generally associated with increased skin thickness. 
-
-Referring back to the correlation graph, Skin Thickness and BMI have a Spearman correlation of 0.44. This value is below the multicollinearity threshold of 0.7, indicating that these features do not pose a risk of multicollinearity in our model.
-
-```{python}
-# validate training data for anomalous correlations between target/response variable 
-# and features/explanatory variables, 
-# as well as anomalous correlations between features/explanatory variables
-
-check_feat_lab_corr = FeatureLabelCorrelation().add_condition_feature_pps_less_than(0.7)
-check_feat_lab_corr_result = check_feat_lab_corr.run(dataset = train_df_ds)
-
-check_feat_feat_corr = FeatureFeatureCorrelation().add_condition_max_number_of_pairs_above_threshold(threshold = 0.7, n_pairs = 0)
-check_feat_feat_corr_result = check_feat_feat_corr.run(dataset = train_df_ds)
-
-if not check_feat_lab_corr_result.passed_conditions():
-    raise ValueError("Feature-Label correlation exceeds the maximum acceptable threshold.")
-
-if not check_feat_feat_corr_result.passed_conditions():
-    raise ValueError("Feature-feature correlation exceeds the maximum acceptable threshold.")
-```
-
-Here we further split our dataset into X and y for both the training and test:
-
-```{python}
-X_train = train_df.drop(columns = ['Outcome'])
-y_train = train_df['Outcome']
-X_test = test_df.drop(columns = ['Outcome'])
-y_test = test_df['Outcome']
-```
-
-The Dummy Classifier acts as our baseline for conductin our initial analysis.
-The Dummy Baseline gives us a score of around 0.6720.
-
-```{python}
-# Create Dummy Classifier and cross validation
-dummy_clf = DummyClassifier()
-mean_cv_score = cross_val_score(dummy_clf, 
-                                X_train,
-                                y_train).mean()
-mean_cv_score
-```
+We then further split our dataset into X and y for both the training and test. As a result, the Dummy Classifier acts as our baseline for conductin our initial analysis. The Dummy Baseline gives us a score of around `{python} 0.6720`.
 
 We will use a Logistic Regression model for classification. Given the presence of outliers in our features, it is advisable to apply StandardScaler() to normalize the feature values before fitting the model. This ensures that all features are on a similar scale, improving the model's performance and stability.
 
-```{python}
-# Create Logistic Regression pipeline
-log_pipe=make_pipeline(
-    StandardScaler(), 
-    LogisticRegression(max_iter=2000,random_state=123)
-)
-```
-
 We optimize the hyperparameter `C` for our Logistic Regression model using a random search approach.
-
-```{python}
-# Hyperparameter optimization
-np.random.seed(123)
-param_dist = {
-    "logisticregression__C": loguniform(1e-5, 1e+5) 
-}
-```
-
-```{python}
-# Create Random Search
-random_search = RandomizedSearchCV(log_pipe,param_dist,
-                                   n_iter=20,
-                                   n_jobs=-1,
-                                   return_train_score=True,
-                                   random_state=123)
-
-random_search.fit(X_train,y_train)
-```
 
 Identify the optimal value for the hyperparameter C to be used in our Logistic Regression model.
 
@@ -410,10 +251,36 @@ coeff_df_sorted.style.format(
     axis = None
 )
 ```
+```{python}
+#| label: tbl-lr_feature_importance
+#| tbl-cap: Logistic regression feature importance measured by coefficients.
+#| echo: false 
 
-Table 1: Logistic regression feature importance measured by coefficients
+# Best model from the search
+best_model = random_search.best_estimator_
 
-Based on the heatmap and table 1 above, the feature importance coefficients for the logistic regression model predicting diabetes reveal that `Glucose` (0.72) is the strongest positive influence, followed by `BMI` (0.39), `Pregnancies` (0.23), `Age` (0.19), and `DiabetesPedigreeFunction` (0.16). The negative influence `SkinThickness` (-0.007) along with the remaining positive features `BloodPressure` (0.048) and `Insulin` (0.002), have weak impacts on the prediction, with their effects being less pronounced. 
+# Retrieve the coefficients and feature names
+coefficients = best_model.named_steps['logisticregression'].coef_.flatten()
+features = X_train.columns  
+
+# Create a DataFrame to display the feature names and corresponding coefficients
+coeff_df = pd.DataFrame({
+    'Features': features,
+    'Coefficients': coefficients
+})
+
+# Sort by 'Coefficients' in descending order to see the most important features first
+coeff_df_sorted = coeff_df.sort_values(by = 'Coefficients', ascending = False)
+
+# Create a heatmap for the coefficients (we will visualize them as a single column)
+coeff_df_sorted.style.format(
+    precision = 3
+).background_gradient(
+    axis = None
+)
+```
+
+Based on the heatmap and @tbl-lr_feature_importance above, the feature importance coefficients for the logistic regression model predicting diabetes reveal that `Glucose` (`{python} `0.72) is the strongest positive influence, followed by `BMI` (`{python} `0.39), `Pregnancies` (`{python} `0.23), `Age` (`{python} `0.19), and `DiabetesPedigreeFunction` (`{python} `0.16). The negative influence `SkinThickness` (`{python} `-0.007) along with the remaining positive features `BloodPressure` (`{python} `0.048) and `Insulin` (`{python} `0.002), have weak impacts on the prediction, with their effects being less pronounced. 
 
 We then evaluate the best Logistic Regression model, obtained from the hyperparameter search, on the test set.
 
@@ -434,7 +301,7 @@ pred_results_1_df['pred_bool'] = pred_results_1_df['pred_bool'] == 1
 pred_results_1_df.head()
 ```
 
-Our prediction model performed decent on test data, with a final overall accuracy of 0.75. In addition, looking through the prediction results dataframe, there are a total of 54 mistakes. Of which, 35 mistakes were predicting diabetic as non-diabetic (false negatives) and 19 mistakes were made predicting diabetic as non-diabetic (false positives). Considering implementation in clinic, there is room for improvement in the algorithm as false negatives are more harmful than false positives, and we should aim to lower false positives even further.
+Our prediction model performed decent on test data, with a final overall accuracy of `{python} `0.75. In addition, looking through the prediction results dataframe, there are a total of `{python} `54 mistakes. Of which, `{python} `35 mistakes were predicting diabetic as non-diabetic (false negatives) and `{python} `19 mistakes were made predicting diabetic as non-diabetic (false positives). Considering implementation in clinic, there is room for improvement in the algorithm as false negatives are more harmful than false positives, and we should aim to lower false positives even further.
 
 ```{python}
 # Compute accuracy
@@ -466,25 +333,17 @@ pd.DataFrame({
 
 Moreover, visualizing prediction probabilities alongside the prediction accuracy for each test sample provides a clearer understanding of the model's performance. This approach allows us to easily assess how well the model predicts, while also highlighting patients who were misdiagnosed. Particularly, it helps us focus on false negatives, as the consequences of these errors are more critical in a clinical context.
 
-```{python}
-alt.Chart(pred_results_1_df, title = 'Test Set Prediction Accuracy').mark_tick().encode(
-    x = alt.X('y_pred_prob_1').title('Positive Class Prediction Prob'),
-    y = alt.Y('pred_bool').title('Pred. Accuracy'),
-    color = alt.Color('y_test:N').title('Outcome')
-)
-```
-
-<i>Figure 4. Test Set Prediction Accuracy by Prediction Probability<i>
+![Test Set Prediction Accuracy by Prediction Probability.](../results/test_set_pred_accur.png){#fig-test_set_pred_accur width=80%}
 
 # Discussion
 
-While the performance of this model may be valuable as a screening tool in a clinical context, especially given its improvements over the baseline, there are several opportunities for further enhancement. One potential approach is to closely examine the 54 misclassified observations, comparing them with correctly classified examples from both classes. The objective would be to identify which features may be contributing to the misclassifications and investigate whether feature engineering could help the model improve its predictions on the observations it is currently struggling with. Additionally, we would try seeing whether we can get improved predictions using other classifiers. Other classifiers we might try are 1) random forest because it automatically allows for feature interaction, 2) k-nearest neighbours (k-NN) which usually provides easily interpretable and decent predictions, and 3) support vector classifier (SVC) as it allows for non-linear prediction using the rbf kernel. Finally, there runs the possibility that the features offered from this dataset alone are not sufficient to predict with high accuracy. In this case, conducting additional conversations with data collectors for additional useable information or explore additional datasets that can be joined so our set of features can be expanded for more complicated analysis might be beneficial. 
+While the performance of this model may be valuable as a screening tool in a clinical context, especially given its improvements over the baseline, there are several opportunities for further enhancement. One potential approach is to closely examine the `{python} `54 misclassified observations, comparing them with correctly classified examples from both classes. The objective would be to identify which features may be contributing to the misclassifications and investigate whether feature engineering could help the model improve its predictions on the observations it is currently struggling with. Additionally, we would try seeing whether we can get improved predictions using other classifiers. Other classifiers we might try are 1) random forest because it automatically allows for feature interaction, 2) k-nearest neighbours (k-NN) which usually provides easily interpretable and decent predictions, and 3) support vector classifier (SVC) as it allows for non-linear prediction using the rbf kernel. Finally, there runs the possibility that the features offered from this dataset alone are not sufficient to predict with high accuracy. In this case, conducting additional conversations with data collectors for additional useable information or explore additional datasets that can be joined so our set of features can be expanded for more complicated analysis might be beneficial. 
 
 At last, we recognize the limitation with this dataset, as it focuses solely on Pima Indian women aged 21 and older, which limits its generalizability to other populations. To improve the analysis, it would be valuable to combine this data with other datasets representing different age groups, genders, and ethnicities, enabling more comprehensive insights and broader applicability of the findings.
 
 # Conclusion
 
-In conclusion, this study demonstrated the effectiveness of logistic regression in predicting diabetes among Pima Indian women using diagnostic features such as glucose, BMI, and pregnancies. With an accuracy of 75% on the test set, the model outperformed the baseline Dummy Classifier's 67.20%. Glucose was identified as the most influential predictor, followed by BMI and pregnancies, while features like blood pressure, insulin, and skin thickness had weaker impacts. However, the model's 54 misclassifications, particularly the 35 false negatives, underscore the need for further refinement to minimize the risk of undiagnosed cases.
+In conclusion, this study demonstrated the effectiveness of logistic regression in predicting diabetes among Pima Indian women using diagnostic features such as glucose, BMI, and pregnancies. With an accuracy of `{python} `75% on the test set, the model outperformed the baseline Dummy Classifier's `{python} `67.20%. Glucose was identified as the most influential predictor, followed by BMI and pregnancies, while features like blood pressure, insulin, and skin thickness had weaker impacts. However, the model's `{python} `54 misclassifications, particularly the `{python} `35 false negatives, underscore the need for further refinement to minimize the risk of undiagnosed cases.
 
 These findings highlight logistic regression's potential as an initial screening tool in clinical settings, offering a data-driven approach to early diabetes detection. Nevertheless, improvements are essential to enhance its accuracy and practical utility. Strategies such as feature engineering, alternative machine learning models, and the incorporation of additional data, such as lifestyle or genetic factors, could further optimize performance. Additionally, providing probability estimates for predictions could enhance clinical decision-making by identifying cases requiring further diagnostics. With these refinements, the model could become a valuable tool for reducing complications and improving outcomes in diabetes care.
 
