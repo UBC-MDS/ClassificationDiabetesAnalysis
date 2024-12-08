@@ -67,6 +67,13 @@ def main(processed_dir, results_dir):
         pickle.dump(log_pipe, f)
     with open(os.path.join(results_dir, 'models', 'random_fit.pkl'), 'wb') as f:
         pickle.dump(random_fit, f)
+    
+    # Save best_params as a CSV
+    best_params = random_search.best_params_
+    pd.DataFrame([best_params]).to_csv(
+        os.path.join(results_dir, 'tables', 'best_params.csv'), 
+        index=False
+    )
 
 
 if __name__ == '__main__':
