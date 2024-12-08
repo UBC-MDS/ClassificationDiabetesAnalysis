@@ -26,7 +26,7 @@ as well as The Diabetes Pedigree Function (which is a score that gives an idea a
 
 The final report can be found [here](https://github.com/UBC-MDS/diabetes_predictor_py/tree/main/reports) or [this webpage](https://ubc-mds.github.io/diabetes_predictor_py/).
 
-## Dependencies
+## Software Dependencies
 - [Docker](https://www.docker.com/) 
 - [VS Code](https://code.visualstudio.com/download)
 - [VS Code Jupyter Extension](https://marketplace.visualstudio.com/items?itemName=ms-toolsai.jupyter)
@@ -101,7 +101,6 @@ cd diabetes_predictor_py
 
 ---
 ### Clean up
-
 1. Docker: Type `Ctrl` + `C` in the terminal where you launched the container, 
 and then type `docker compose rm` to shut down the container and clean up the resources
 
