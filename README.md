@@ -90,6 +90,7 @@ cd diabetes_predictor_py
      --y-test-data='./data/processed/y_test.csv' \
      --results-to='./results/tables' \
      --plot-to='./results/figures'
+   
     quarto render reports/diabetes_analysis.qmd --to html
     quarto render report/diabetes_analysis.qmd --to pdf
 
