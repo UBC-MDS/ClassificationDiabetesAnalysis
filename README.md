@@ -7,9 +7,9 @@ Inder Khera, Jenny Zhang, Jessica Kuo, Javier Martinez (alphabetically ordered)
 ## About
 
 In this study, we aim to develop a classification model using the logistic regression (LR) algorithm to predict whether a patient is expected to have diabetes or not. 
-Our final model performed decent on an unseen test dataset, achieving an overall accuracy of 0.75. Out of 218 test cases, the model correctly identified 164. 
-However, it made 46 incorrect predictions, of which, 19 are false positives - incorrectly classifying non-diabetic subjects to diabetic- 
-and 35 are false negatives - fail to diagnose diabetes when the patient is actually diabetic. 
+Our final model performed decent on an unseen test dataset, achieving an overall accuracy of 0.80. Out of 101 test cases, the model correctly identified 81. 
+However, it made 20 incorrect predictions, of which, 6 are false positives - incorrectly classifying non-diabetic subjects to diabetic- 
+and 14 are false negatives - fail to diagnose diabetes when the patient is actually diabetic. 
 Such errors could either lead to unnecessary treatment or delayed treatment, with the latter having more serious consequences, 
 so we recommend further refinement of the model before it is deployed for clinical use.
 
@@ -25,6 +25,11 @@ as well as The Diabetes Pedigree Function (which is a score that gives an idea a
 ## Report
 
 The final report can be found [here](https://github.com/UBC-MDS/diabetes_predictor_py/tree/main/analysis) or [this webpage](https://ubc-mds.github.io/diabetes_predictor_py/).
+
+## Dependencies
+- [Docker](https://www.docker.com/) 
+- [VS Code](https://code.visualstudio.com/download)
+- [VS Code Jupyter Extension](https://marketplace.visualstudio.com/items?itemName=ms-toolsai.jupyter)
 
 ## Usage
 
@@ -55,42 +60,44 @@ cd diabetes_predictor_py
 
 2. Once the container is running, access the server by opening the link shown in the terminal (e.g., http://127.0.0.1:8888/lab?token={your_token})
 
-3. Open the JupyterLab link generated in the terminal. Navigate to:
+3. To run the analysis, open a terminal and run the following commands:
    ```
-   analysis/diabetes_analysis.ipynb
-   ```
+   python scripts/download_data.py \
+    --url="https://www.kaggle.com/api/v1/datasets/download/uciml/pima-indians-diabetes-database" \
+    --write-to=data/raw
 
-4. Under the **Kernel** menu, click:
-   ```
-   Restart Kernel and Run All Cells...
+    python scripts/data_validation_schema.py \
+    --raw-data=data/raw/diabetes.csv \
+    --data-to=data/processed
+
+    python scripts/eda_deepchecks.py \
+    --validated-data=data/processed/df.csv \
+    --data-to=data/processed \
+    --plot-to=results/figures
+
+    python scripts/split_dataset.py \
+    --train-file ./data/processed/train_df.csv \
+    --test-file ./data/processed/test_df.csv \
+    --output-dir ./data/processed/
+
+    python scripts/preprocessing_model_fitting.py \
+     --processed-dir ./data/processed/ \
+     --results-dir /home/jovyan/results
+
+    python scripts/testing_script.py \
+     --x-train-data='./data/processed/X_train.csv' \
+     --pipeline-from=results/models/random_fit.pkl \
+     --x-test-data='./data/processed/X_test.csv' \
+     --y-test-data='./data/processed/y_test.csv' \
+     --results-to='./results/tables' \
+     --plot-to='./results/figures'
+   
+    quarto render reports/diabetes_analysis.qmd --to html
+    quarto render reports/diabetes_analysis.qmd --to pdf
+
    ```
 
 ---
-
-### Option 2: Using Conda
-
-1. Set up the Conda environment and run JupyterLab using the provided script:
-   ```bash
-   chmod +x ./builders/conda_magic_builder.sh
-   ./builders/conda_magic_builder.sh
-   ```
-
-2. Open:
-   ```
-   analysis/diabetes_analysis.ipynb
-   ```
-
-3. Under **Switch/Select Kernel**, choose:
-   ```
-   Python [conda env:diabetes_predictor]
-   ```
-
-4. Under the **Kernel** menu, click:
-   ```
-   Restart Kernel and Run All Cells...
-   ```
-
-These steps ensure you can run the analysis seamlessly using either Docker or Conda.
 
 ---
 ### Clean up
@@ -98,11 +105,8 @@ These steps ensure you can run the analysis seamlessly using either Docker or Co
 1. Docker: Type `Ctrl` + `C` in the terminal where you launched the container, 
 and then type `docker compose rm` to shut down the container and clean up the resources
 
-2. Conda: Type `Ctrl` + `C` in the terminal where Jupyter Notebook is launched, 
-type `conda deactivate` to exit out of the project environment, 
-and then type `conda env remove diabetes_predictor` to delete the environment and clean up the resources
 
-## Dependencies
+## Developer Dependencies
 
 - conda (version 23.9.0 or higher)
 - conda-lock (version 2.5.7 or higher)
@@ -116,9 +120,7 @@ and then type `conda env remove diabetes_predictor` to delete the environment an
 1. Add the dependency to the `environment.yml` file on a new branch. 
 If the package is `pip` installed, it should also be added to `Dockerfile` with command `RUN pip install <package_name> = <version>`
 
-2. Run `conda-lock -k explicit --file environment.yml -p linux-64` to update the `conda-linux-64.lock` file.
-
-3. Re-run the scripts above using the Docker or Conda option. 
+3. Re-run the scripts above using Docker
 
 ## License
 

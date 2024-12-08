@@ -9,16 +9,20 @@ import click
 
 
 @click.command()
-@click.option('--input-file', type=str, default="../data/processed/train_df.csv", help="Path to the processed train_df CSV file")
+@click.option('--train-file', type=str, default="../data/processed/train_df.csv", help="Path to the processed train_df CSV file")
+@click.option('--test-file', type=str, default="../data/processed/test_df.csv", help="Path to the processed test_df CSV file")
 @click.option('--output-dir', type=str, default="../data/processed/", help="Path to the directory where split data will be saved")
-def main(input_file, output_dir):
+def main(train_file, test_file, output_dir):
     """
-    Splits a dataset into training and testing sets and saves the results as separate CSV files.
+    Processes separate train and test datasets, separates features and target variable, 
+    and saves them as separate CSV files.
 
     Parameters:
     -----------
-    input_file : str
-        Path to the input CSV file containing the processed dataset.
+    train_file : str
+        Path to the input CSV file containing the processed training dataset.
+    test_file : str
+        Path to the input CSV file containing the processed testing dataset.
     output_dir : str
         Directory where the resulting split datasets (X_train, y_train, X_test, y_test) will be saved.
 
@@ -32,17 +36,15 @@ def main(input_file, output_dir):
     """
     os.makedirs(output_dir, exist_ok=True)
 
-    # Load the processed dataset
-    train_df = pd.read_csv(input_file)
-
-    # Split the data into training and testing sets
-    train_set, test_set = train_test_split(train_df, test_size=0.2, random_state=123, stratify=train_df['Outcome'])
+    # Load the processed datasets
+    train_df = pd.read_csv(train_file)
+    test_df = pd.read_csv(test_file)
 
     # Separate features and target variable for train and test sets
-    X_train = train_set.drop(columns=['Outcome'])
-    y_train = train_set[['Outcome']]
-    X_test = test_set.drop(columns=['Outcome'])
-    y_test = test_set[['Outcome']]
+    X_train = train_df.drop(columns=['Outcome'])
+    y_train = train_df[['Outcome']]
+    X_test = test_df.drop(columns=['Outcome'])
+    y_test = test_df[['Outcome']]
 
     # Save the split data as CSV files
     X_train.to_csv(os.path.join(output_dir, 'X_train.csv'), index=False)
