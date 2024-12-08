@@ -62,7 +62,35 @@ cd diabetes_predictor_py
 
 3. To run the analysis, open a terminal and run the following commands:
    ```
-   analysis/diabetes_analysis.ipynb
+   python scripts/download_data.py \
+    --url="https://www.kaggle.com/api/v1/datasets/download/uciml/pima-indians-diabetes-database" \
+    --write-to=data/raw
+
+    python scripts/data_validation_schema.py \
+    --raw-data=data/raw/diabetes.csv \
+    --data-to=data/processed
+
+    python scripts/eda_deepchecks.py \
+    --validated-data=data/processed/df.csv \
+    --data-to=data/processed \
+    --plot-to=results/figures
+
+    python scripts/split_and_preprocess.py \
+     --input-file ./data/processed/train_df.csv \
+      --output-dir ./data/processed/
+
+    python scripts/model_fitting.py \
+     --processed-dir ./data/processed/ \
+     --results-dir /home/jovyan/results
+
+    python scripts/testing_script.py \
+     --x-train-data='./data/processed/X_train.csv' \
+      --pipeline-from=results/models/random_fit.pickle \
+       --x-test-data='./data/processed/X_test.csv' \ 
+       --y-test-data='data/processed/y_test.csv' \
+       --results-to='./results/tables' \
+       --plot-to='./results/figures'
+       
    ```
 
 4. Under the **Kernel** menu, click:
