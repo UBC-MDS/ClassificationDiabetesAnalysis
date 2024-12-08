@@ -7,9 +7,9 @@ Inder Khera, Jenny Zhang, Jessica Kuo, Javier Martinez (alphabetically ordered)
 ## About
 
 In this study, we aim to develop a classification model using the logistic regression (LR) algorithm to predict whether a patient is expected to have diabetes or not. 
-Our final model performed decent on an unseen test dataset, achieving an overall accuracy of 0.80. Out of 218 test cases, the model correctly identified 164. 
-However, it made 14 incorrect predictions, of which, 6 are false positives - incorrectly classifying non-diabetic subjects to diabetic- 
-and 35 are false negatives - fail to diagnose diabetes when the patient is actually diabetic. 
+Our final model performed decent on an unseen test dataset, achieving an overall accuracy of 0.80. Out of 101 test cases, the model correctly identified 81. 
+However, it made 20 incorrect predictions, of which, 6 are false positives - incorrectly classifying non-diabetic subjects to diabetic- 
+and 14 are false negatives - fail to diagnose diabetes when the patient is actually diabetic. 
 Such errors could either lead to unnecessary treatment or delayed treatment, with the latter having more serious consequences, 
 so we recommend further refinement of the model before it is deployed for clinical use.
 
