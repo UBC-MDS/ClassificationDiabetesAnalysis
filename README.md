@@ -92,7 +92,7 @@ cd diabetes_predictor_py
      --plot-to='./results/figures'
    
     quarto render reports/diabetes_analysis.qmd --to html
-    quarto render report/diabetes_analysis.qmd --to pdf
+    quarto render reports/diabetes_analysis.qmd --to pdf
 
    ```
 
