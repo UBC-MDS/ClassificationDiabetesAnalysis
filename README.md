@@ -26,6 +26,11 @@ as well as The Diabetes Pedigree Function (which is a score that gives an idea a
 
 The final report can be found [here](https://github.com/UBC-MDS/diabetes_predictor_py/tree/main/analysis) or [this webpage](https://ubc-mds.github.io/diabetes_predictor_py/).
 
+## Dependencies
+- [Docker](https://www.docker.com/) 
+- [VS Code](https://code.visualstudio.com/download)
+- [VS Code Jupyter Extension](https://marketplace.visualstudio.com/items?itemName=ms-toolsai.jupyter)
+
 ## Usage
 
 To replicate this analysis, follow the steps below. You can run the analysis using one of two methods: **Docker** or **Conda**.
@@ -55,7 +60,7 @@ cd diabetes_predictor_py
 
 2. Once the container is running, access the server by opening the link shown in the terminal (e.g., http://127.0.0.1:8888/lab?token={your_token})
 
-3. Open the JupyterLab link generated in the terminal. Navigate to:
+3. To run the analysis, open a terminal and run the following commands:
    ```
    analysis/diabetes_analysis.ipynb
    ```
@@ -102,7 +107,7 @@ and then type `docker compose rm` to shut down the container and clean up the re
 type `conda deactivate` to exit out of the project environment, 
 and then type `conda env remove diabetes_predictor` to delete the environment and clean up the resources
 
-## Dependencies
+## Developer Dependencies
 
 - conda (version 23.9.0 or higher)
 - conda-lock (version 2.5.7 or higher)
