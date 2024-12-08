@@ -90,40 +90,10 @@ cd diabetes_predictor_py
        --y-test-data='data/processed/y_test.csv' \
        --results-to='./results/tables' \
        --plot-to='./results/figures'
-       
-   ```
 
-4. Under the **Kernel** menu, click:
-   ```
-   Restart Kernel and Run All Cells...
    ```
 
 ---
-
-### Option 2: Using Conda
-
-1. Set up the Conda environment and run JupyterLab using the provided script:
-   ```bash
-   chmod +x ./builders/conda_magic_builder.sh
-   ./builders/conda_magic_builder.sh
-   ```
-
-2. Open:
-   ```
-   analysis/diabetes_analysis.ipynb
-   ```
-
-3. Under **Switch/Select Kernel**, choose:
-   ```
-   Python [conda env:diabetes_predictor]
-   ```
-
-4. Under the **Kernel** menu, click:
-   ```
-   Restart Kernel and Run All Cells...
-   ```
-
-These steps ensure you can run the analysis seamlessly using either Docker or Conda.
 
 ---
 ### Clean up
@@ -131,9 +101,6 @@ These steps ensure you can run the analysis seamlessly using either Docker or Co
 1. Docker: Type `Ctrl` + `C` in the terminal where you launched the container, 
 and then type `docker compose rm` to shut down the container and clean up the resources
 
-2. Conda: Type `Ctrl` + `C` in the terminal where Jupyter Notebook is launched, 
-type `conda deactivate` to exit out of the project environment, 
-and then type `conda env remove diabetes_predictor` to delete the environment and clean up the resources
 
 ## Developer Dependencies
 
