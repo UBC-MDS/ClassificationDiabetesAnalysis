@@ -76,8 +76,9 @@ cd diabetes_predictor_py
     --plot-to=results/figures
 
     python scripts/split_dataset.py \
-     --input-file ./data/processed/train_df.csv \
-      --output-dir ./data/processed/
+    --train-file ./data/processed/train_df.csv \
+    --test-file ./data/processed/test_df.csv \
+    --output-dir ./data/processed/
 
     python scripts/preprocessing_model_fitting.py \
      --processed-dir ./data/processed/ \
