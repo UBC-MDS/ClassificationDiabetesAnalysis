@@ -37,8 +37,8 @@ def main(train_file, test_file, output_dir):
     os.makedirs(output_dir, exist_ok=True)
 
     # Load the processed datasets
-    train_df = pd.read_csv(train_file)
-    test_df = pd.read_csv(test_file)
+    train_df = pd.read_csv(train_file, index_col = 0)
+    test_df = pd.read_csv(test_file, index_col = 0)
 
     # Separate features and target variable for train and test sets
     X_train = train_df.drop(columns=['Outcome'])

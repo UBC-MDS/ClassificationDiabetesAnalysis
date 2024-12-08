@@ -63,7 +63,7 @@ def main(x_train_data, x_test_data, y_test_data, pipeline_from, results_to, plot
             axis = None
             )
     # Save the sorted coefficients to a CSV file
-    coeff_df_sorted.to_csv(os.path.join(results_to, "coeff_table.csv"), index=False)
+    coeff_df_sorted.to_csv(os.path.join(results_to, "coeff_table.csv"))
     coeff_table.to_html(os.path.join(results_to, 'coeff_table.html'))
 
     # Make predictions using the best model
