@@ -24,7 +24,7 @@ as well as The Diabetes Pedigree Function (which is a score that gives an idea a
 
 ## Report
 
-The final report can be found [here](https://github.com/UBC-MDS/diabetes_predictor_py/tree/main/reports) or [this webpage](https://ubc-mds.github.io/diabetes_predictor_py/).
+The final report can be found [here](https://ubc-mds.github.io/diabetes_predictor_py/reports/diabetes_analysis.html).
 
 ## Software Dependencies
 - [Docker](https://www.docker.com/) 
