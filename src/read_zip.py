@@ -1,3 +1,7 @@
+# read_zip.py
+# author: Jenny Zhang
+# date: 2024-12-12
+
 import os
 import zipfile
 import requests
