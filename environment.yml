@@ -22,4 +22,6 @@ dependencies:
   - tabulate=0.9.0
   - requests=2.31.0
   - pytest=8.3.4
+  - make=4.4.1
+  - responses=0.24.1
   - pip=24.3
