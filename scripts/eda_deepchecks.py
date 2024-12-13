@@ -12,10 +12,10 @@ import altair_ally as aly
 from sklearn.model_selection import train_test_split
 
 import warnings
-# for warning_type in [FutureWarning, DeprecationWarning]:
-#     warnings.filterwarnings("ignore", category=warning_type)
-warnings.filterwarnings("ignore", category=DeprecationWarning)
-warnings.filterwarnings("ignore", category=FutureWarning)
+for warning_type in [FutureWarning, DeprecationWarning]:
+    warnings.filterwarnings("ignore", category=warning_type)
+# warnings.filterwarnings("ignore", category=DeprecationWarning)
+# warnings.filterwarnings("ignore", category=FutureWarning)
 
 sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
 from src.data_deepchecks import data_deepchecks

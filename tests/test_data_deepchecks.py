@@ -2,6 +2,12 @@
 # author: Jenny Zhang
 # date: 2024-12-12
 
+import warnings
+for warning_type in [FutureWarning, DeprecationWarning]:
+    warnings.filterwarnings("ignore", category=warning_type)
+# warnings.filterwarnings("ignore", category=DeprecationWarning)
+# warnings.filterwarnings("ignore", category=FutureWarning)
+
 import pytest
 import os
 import sys
@@ -9,16 +15,10 @@ import numpy as np
 import pandas as pd
 from itertools import combinations
 
-import warnings
-# for warning_type in [FutureWarning, DeprecationWarning]:
-#     warnings.filterwarnings("ignore", category=warning_type)
-warnings.filterwarnings("ignore", category=DeprecationWarning)
-warnings.filterwarnings("ignore", category=FutureWarning)
-
 sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
 from src.data_deepchecks import data_deepchecks
 
-# Generate a larger dataset with 100 samples
+# Generate a dataset with 100 samples
 np.random.seed(123)  # For reproducibility
 valid_data = pd.DataFrame({
     'Pregnancies': np.random.randint(0, 15, size=100),
@@ -80,12 +80,14 @@ for col1, col2 in combinations(numeric_feats, 2):  # Generate all unique pairs o
     invalid_data_cases.append((case_corr_feat_feat, "Feature-feature correlation exceeds the maximum acceptable threshold."))
 
 # Parameterize the invalid data tests
+@pytest.mark.filterwarnings("ignore::DeprecationWarning")
 @pytest.mark.parametrize("invalid_data, description", invalid_data_cases)
 def test_invalid_data_cases(invalid_data, description):
     with pytest.raises(ValueError, match=description):
         data_deepchecks(invalid_data)
 
 # Success test: Valid data should pass without errors
+@pytest.mark.filterwarnings("ignore::DeprecationWarning")
 def test_valid_data():
     # Valid data should pass the deepchecks without raising any errors
     try:
@@ -102,6 +104,7 @@ for col in numeric_feats:
     case_mixed_dtype.loc[rare_indices, col] = 'string'
     warning_data_cases.append((case_mixed_dtype, "Percentage of rare data type in dangerous zone for at least one column"))
 
+@pytest.mark.filterwarnings("ignore::DeprecationWarning")
 @pytest.mark.parametrize("warning_data, description", warning_data_cases)
 def test_mixed_dtype_warning(warning_data, description):
     # Warning should be raised as rare data type is in dangerous zone of 1% to 20%

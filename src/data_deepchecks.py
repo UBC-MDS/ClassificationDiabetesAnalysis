@@ -2,12 +2,13 @@
 # author: Jenny Zhang
 # date: 2024-12-12
 
-import pandas as pd
 import warnings
-# for warning_type in [FutureWarning, DeprecationWarning]:
-#     warnings.filterwarnings("ignore", category=warning_type)
-warnings.filterwarnings("ignore", category=DeprecationWarning)
-warnings.filterwarnings("ignore", category=FutureWarning)
+for warning_type in [FutureWarning, DeprecationWarning]:
+    warnings.filterwarnings("ignore", category=warning_type)
+# warnings.filterwarnings("ignore", category=DeprecationWarning)
+# warnings.filterwarnings("ignore", category=FutureWarning)
+
+import pandas as pd
 
 from deepchecks.tabular import Dataset
 from deepchecks.tabular.checks import (
