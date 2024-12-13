@@ -93,7 +93,7 @@ for col in numeric_columns:
     warning_data_cases.append((case_mixed_dtype, "Rare data type in dangerous zone for '{col}'."))
 
 @pytest.mark.parametrize("warning_data, description", warning_data_cases)
-def test_mixed_dtype_warning():
+def test_mixed_dtype_warning(warning_data, description):
     # Warning should be raised as rare data type is in dangerous zone of 1% to 20%
     with pytest.warns(UserWarning, match=description):
         data_deepchecks(warning_data)
