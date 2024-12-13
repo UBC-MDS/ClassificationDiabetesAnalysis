@@ -43,13 +43,14 @@ for col in numeric_feats:
     case_null[col] = np.nan
     invalid_data_cases.append((case_null, "Percent of nulls exceeds the maximum acceptable threshold for at least one column."))
 
-# Case: Generate 9 cases (one for each numeric features) where data exceeds outliers threshold
-for col in numeric_feats:
-    case_outlier = valid_data.copy()
-    outliers_count = int(len(case_outlier) * 0.3)
-    outliers = case_outlier[col].sample(n=outliers_count, random_state=123) 
-    case_outlier.loc[outliers.index, col] = outliers * 10
-    invalid_data_cases.append((case_outlier, "Number of outlier samples exceeds the maximum acceptable threshold."))
+# Case: Generate a case where 10% of data are outliers and exceed outliers threshold
+case_outlier = valid_data.copy()
+outliers_count = int(len(case_outlier) * len(numeric_feats) * 0.1)
+outlier_positions = np.random.choice(valid_data.index, outliers_count, replace=False)
+outlier_columns = np.random.choice(numeric_feats, outliers_count, replace=True)
+for idx, col in zip(outlier_positions, outlier_columns):
+    case_outlier.loc[idx, col] = case_outlier.loc[idx, col] * 10
+invalid_data_cases.append((case_outlier, "Number of outlier samples exceeds the maximum acceptable threshold."))
 
 # Case: Duplicate rows
 case_duplicate = valid_data.copy()
