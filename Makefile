@@ -16,3 +16,9 @@ data/processed/df.csv: scripts/data_validation_schema.py data/raw/diabetes.csv
 
 # Perform EDA and generate plots
 
+results/figures/feature_histograms.png results/figures/correlation_heat_map.png results/figures/pairwise_scatterplot.png: scripts/eda_deepchecks.py data/processed/df.csv
+	python scripts/eda_deepchecks.py \
+		--validated-data=data/processed/df.csv \
+		--data-to=data/processed \
+		--plot-to=results/figures
+
