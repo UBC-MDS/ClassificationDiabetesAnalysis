@@ -27,13 +27,13 @@ test_files_subdir = ['test1.txt', 'test2.csv', 'subdir/test3.txt']
 test_files_2txt_csv = ['test1.txt', 'test2.csv', 'test4.txt']
 
 # URL for Case 1 (zip file containing 'test1.txt' and 'test2.csv')
-url_txt_csv_zip = 'https://github.com/ttimbers/breast_cancer_predictor_py/raw/main/tests/files_txt_csv.zip'
+url_txt_csv_zip = 'https://github.com/UBC-MDS/diabetes_predictor_py/blob/src_test/tests/files_txt_csv.zip'
 
 # URL for Case 2 ('test1.txt', test2.csv and 'subdir/test2.txt')
-url_txt_subdir_zip = 'https://github.com/ttimbers/breast_cancer_predictor_py/raw/main/tests/files_txt_subdir.zip'
+url_txt_subdir_zip = 'https://github.com/UBC-MDS/diabetes_predictor_py/blob/src_test/tests/files_txt_subdir.zip'
 
 # URL for Case 3 (empty zip file)
-url_empty_zip = 'https://github.com/ttimbers/breast_cancer_predictor_py/raw/main/tests/empty.zip'
+url_empty_zip = 'https://github.com/UBC-MDS/diabetes_predictor_py/blob/src_test/tests/empty.zip'
 
 # mock non-existing URL
 @pytest.fixture
@@ -69,8 +69,8 @@ def test_read_zip_subdir():
     for file in test_files_subdir:
         if os.path.exists(file):
             os.remove(file)
-    if os.path.exists('testss/test_zip_data1/subdir'):
-        shutil.rmtree('testss/test_zip_data1/subdir')
+    if os.path.exists('tests/test_zip_data1/subdir'):
+        shutil.rmtree('tests/test_zip_data1/subdir')
 
 # test read_zip function can download and extract a zip file containing two files 
 # into a directory that already contains a file
