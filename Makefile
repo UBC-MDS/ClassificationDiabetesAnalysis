@@ -34,3 +34,46 @@ results/tables/mean_cv_score.csv results/tables/best_params.csv: scripts/preproc
 	     --processed-dir ./data/processed/ \
 	     --results-dir ./results
 
+# Test the model and save results
+results/tables/coeff_table.csv results/tables/pred_results_1_df.csv results/tables/accuracy_df.csv results/tables/value_counts_df.csv results/tables/fp_fn_df.csv results/figures/predic_chart.png: scripts/testing_script.py data/processed/X_train.csv data/processed/X_test.csv data/processed/y_test.csv results/models/random_fit.pkl
+	python scripts/testing_script.py \
+	     --x-train-data='./data/processed/X_train.csv' \
+	     --pipeline-from=results/models/random_fit.pkl \
+	     --x-test-data='./data/processed/X_test.csv' \
+	     --y-test-data='./data/processed/y_test.csv' \
+	     --results-to='./results/tables' \
+	     --plot-to='./results/figures'
+
+# Render HTML report
+reports/diabetes_analysis.html: reports/diabetes_analysis.qmd \
+     results/figures/feature_histograms.png \
+     results/figures/correlation_heat_map.png \
+     results/figures/pairwise_scatterplot.png \
+     results/tables/mean_cv_score.csv \
+     results/tables/best_params.csv \
+     results/tables/coeff_table.csv \
+     results/tables/pred_results_1_df.csv \
+     results/tables/accuracy_df.csv \
+     results/tables/value_counts_df.csv \
+     results/tables/fp_fn_df.csv
+	quarto render reports/diabetes_analysis.qmd --to html
+
+# Render PDF report
+reports/diabetes_analysis.pdf: reports/diabetes_analysis.qmd \
+     results/figures/feature_histograms.png \
+     results/figures/correlation_heat_map.png \
+     results/figures/pairwise_scatterplot.png \
+     results/tables/mean_cv_score.csv \
+     results/tables/best_params.csv \
+     results/tables/coeff_table.csv \
+     results/tables/pred_results_1_df.csv \
+     results/tables/accuracy_df.csv \
+     results/tables/value_counts_df.csv \
+     results/tables/fp_fn_df.csv
+	quarto render reports/diabetes_analysis.qmd --to pdf
+
+# Clean up generated files
+clean:
+	rm -rf data/raw/* data/processed/* results/figures/* 
+	rm -rf reports/diabetes_analysis.html \
+		reports/diabetes_analysis.pdf
