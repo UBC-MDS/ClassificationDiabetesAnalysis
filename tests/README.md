@@ -11,6 +11,10 @@ If for some reason they go missing from the remote repository,
 we can re-run the `generate_test_zip_files.py` script to re-generate them
 and then push them to the remote repository.
 
+```
+python tests/generate_test_zip_files.py
+```
+
 ### Test teardown
 `conftest.py` contains the code to delete the files and directories 
 created by the tests which need to be deleted at the end of the tests.
