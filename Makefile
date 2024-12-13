@@ -74,6 +74,22 @@ reports/diabetes_analysis.pdf: reports/diabetes_analysis.qmd \
 
 # Clean up generated files
 clean:
-	rm -rf data/raw/* data/processed/* results/figures/* 
-	rm -rf reports/diabetes_analysis.html \
-		reports/diabetes_analysis.pdf
+	rm -f data/raw/diabetes.csv
+	rm -f data/processed/df.csv \
+	      data/processed/X_train.csv \
+	      data/processed/y_train.csv \
+	      data/processed/X_test.csv \
+	      data/processed/y_test.csv
+	rm -f results/figures/feature_histograms.png \
+	      results/figures/correlation_heat_map.png \
+	      results/figures/pairwise_scatterplot.png \
+	      results/figures/predic_chart.png
+	rm -f results/tables/mean_cv_score.csv \
+	      results/tables/best_params.csv \
+	      results/tables/coeff_table.csv \
+	      results/tables/pred_results_1_df.csv \
+	      results/tables/accuracy_df.csv \
+	      results/tables/value_counts_df.csv \
+	      results/tables/fp_fn_df.csv
+	rm -f reports/diabetes_analysis.html \
+	      reports/diabetes_analysis.pdf
