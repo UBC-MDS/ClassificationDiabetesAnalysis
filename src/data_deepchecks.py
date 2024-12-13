@@ -4,6 +4,11 @@
 
 import pandas as pd
 import warnings
+# for warning_type in [FutureWarning, DeprecationWarning]:
+#     warnings.filterwarnings("ignore", category=warning_type)
+warnings.filterwarnings("ignore", category=DeprecationWarning)
+warnings.filterwarnings("ignore", category=FutureWarning)
+
 from deepchecks.tabular import Dataset
 from deepchecks.tabular.checks import (
     ClassImbalance, 

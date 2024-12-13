@@ -7,6 +7,14 @@ import os
 import sys
 import numpy as np
 import pandas as pd
+from itertools import combinations
+
+import warnings
+# for warning_type in [FutureWarning, DeprecationWarning]:
+#     warnings.filterwarnings("ignore", category=warning_type)
+warnings.filterwarnings("ignore", category=DeprecationWarning)
+warnings.filterwarnings("ignore", category=FutureWarning)
+
 sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
 from src.data_deepchecks import data_deepchecks
 
@@ -65,14 +73,11 @@ for col in numeric_columns:
             case_corr_feat_label[col] = case_corr_feat_label['Outcome'] * 100  # Create strong correlation
             invalid_data_cases.append((case_corr_feat_label, "Feature-Label correlation exceeds the maximum acceptable threshold."))
 
-# Case: Generate 28 cases (8 * 7 / 2 unique pairs of features) where data's Feature-feature correlation exceeds threshold
-for col in numeric_feats:
-    for i, col1 in enumerate(numeric_feats):
-        for col2 in numeric_feats[i+1:]:  # Check each pair once
-            # Create a strong correlation by setting one feature based on the other
-            case_corr_feat_feat = valid_data.copy()
-            case_corr_feat_feat[col2] = case_corr_feat_feat[col1] * 0.5
-            invalid_data_cases.append((case_corr_feat_feat, "Feature-feature correlation exceeds the maximum acceptable threshold."))
+# # Case: Generate 28 cases (8 * 7 / 2 unique pairs of features) where data's Feature-feature correlation exceeds threshold
+for col1, col2 in combinations(numeric_feats, 2):  # Generate all unique pairs of columns
+    case_corr_feat_feat = valid_data.copy()
+    case_corr_feat_feat[col2] = case_corr_feat_feat[col1] * 0.5  # Create a strong correlation by setting one feature based on the other
+    invalid_data_cases.append((case_corr_feat_feat, "Feature-feature correlation exceeds the maximum acceptable threshold."))
 
 # Parameterize the invalid data tests
 @pytest.mark.parametrize("invalid_data, description", invalid_data_cases)
@@ -88,7 +93,7 @@ def test_valid_data():
     except ValueError as e:
         pytest.fail(f"Valid data raised an error: {e}")
 
-# Edge case: Generate 9 cases (one for each numeric features) where mixed data types are in dangerous zone **Testing for warnings**
+# Edge case: Generate 8 cases (one for each numeric features) where mixed data types are in dangerous zone **Testing for warnings**
 warning_data_cases = []
 for col in numeric_feats:
     case_mixed_dtype = valid_data.copy()
