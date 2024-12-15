@@ -71,11 +71,12 @@ for col in numeric_columns:
     case_too_small[col] = case_too_small[col] - 10  # Adding an arbitrary value to make it out of range
     invalid_data_cases.append((case_too_small, f"Check absent or incorrect for numeric values in '{col}' being too small"))
 
-# Generate cases where numeric data is the wrong type
-for col in range_constraints.keys():
+# Generate 30 cases (one for each numeric column) where data is the wrong type
+numeric_columns = valid_data.select_dtypes(include=np.number).columns
+for col in numeric_columns:
     case_wrong_type = valid_data.copy()
-    case_wrong_type[col] = case_wrong_type[col].astype(str)  # Convert to string type
-    invalid_data_cases.append((case_wrong_type, f"Check incorrect type for numeric values in '{col}' is missing or incorrect"))
+    case_wrong_type[col] = case_wrong_type[col].fillna(0.0).astype(int)  # convert from float to int
+    invalid_data_cases.append((case_wrong_type, f"Check incorrect type for float values in '{col}' is missing or incorrect"))
 
 # Case: duplicate observations
 case_duplicate = valid_data.copy()
