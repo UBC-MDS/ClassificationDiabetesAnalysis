@@ -95,7 +95,7 @@ or harnessing large volumes of diabetes-related data to extract valuable insight
 Therefore, The goal of this report is to leverage a supervised machine learning model, logistic regression (LR), 
 to evaluate its predictive performance in diagnosing diabetes using a real-world dataset focused specifically on Pima Indian women aged 21 and older.
 
-# Methods and Results
+# Methods
 
 ### Data
 
@@ -118,7 +118,7 @@ The dataset offers comprehensive features for machine learning analysis.
 Logistic Regression was employed to develop a classification model for predicting whether the patient is diabetic or not 
 (as indicated in the `outcome` column of the dataset). All variables from the original dataset were used to train the model. 
 The data was split into 70% for the training set and 30% for the testing set. Hyperparameter tuning was performed using `RandomizedSearchCV`, 
-with the accuracy score serving as the classification metric. All variables were standardized just before model fitting. 
+with the accuracy score serving as the classification metric. Optimization was done for the regularization strength parameter `C` of the Logistic Regression model using a log-uniform distribution between \(1 \times 10^{-5}\) and \(1 \times 10^{5}\). This approach is necessary because the `C` parameter controls the trade-off between model complexity and fitting the training data, and exploring a wide range of values helps identify the optimal balance for better model performance and generalization.. All variables were standardized just before model fitting. 
 The analysis was conducted using the Python programming language [@Python] and several Python packages: numpy [@harris2020array], 
 Pandas [@pandas], altair [@altair], altair_ally [@ostblom2021altair] and scikit-learn [@pedregosa2011scikit]. 
 The code used for this analysis and report is available at: https://github.com/UBC-MDS/diabetes_predictor_py
@@ -226,7 +226,7 @@ Moreover, visualizing prediction probabilities alongside the prediction accuracy
 
 ![Test Set Prediction Accuracy by Prediction Probability.](../results/figures/predic_chart.png){#fig-test_set_pred_accur width=80%}
 
-# Discussion
+# Results & Discussion
 
 While the performance of this model may be valuable as a screening tool in a clinical context, 
 especially given its improvements over the baseline, there are several opportunities for further enhancement. 
