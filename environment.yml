@@ -21,7 +21,7 @@ dependencies:
   - click=8.1.7
   - tabulate=0.9.0
   - requests=2.31.0
+  - pytest=8.3.4
+  - make=4.4.1
+  - responses=0.24.1
   - pip=24.3
-  - pip:
-    - altair_ally==0.1.1
-    - deepchecks==0.18.1

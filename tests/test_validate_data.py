@@ -11,6 +11,7 @@ import sys
 sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
 from src.validate_diabetes_data import validate_diabetes_data
 
+
 # Valid data example
 valid_data = pd.DataFrame({
     "Outcome": [0, 1, 0],
