@@ -4,8 +4,61 @@
 
 import os
 import pandas as pd
-from sklearn.model_selection import train_test_split
 import click
+
+
+def read_csv_data(file_path):
+    """
+    Reads a CSV file and loads it into a pandas DataFrame.
+
+    Parameters:
+    -----------
+    file_path : str
+        Path to the CSV file.
+
+    Returns:
+    --------
+    pd.DataFrame
+        A pandas DataFrame containing the data from the CSV file.
+    """
+    return pd.read_csv(file_path)
+
+
+def separate_features_and_target(data, target_column):
+    """
+    Separates features and target variable from the dataset.
+
+    Parameters:
+    -----------
+    data : pd.DataFrame
+        The dataset containing features and target variable.
+    target_column : str
+        Name of the column representing the target variable.
+
+    Returns:
+    --------
+    tuple
+        A tuple containing:
+        - X (pd.DataFrame): Features DataFrame.
+        - y (pd.DataFrame): Target variable DataFrame.
+    """
+    X = data.drop(columns=[target_column])
+    y = data[[target_column]]
+    return X, y
+
+
+def save_data(data, file_path):
+    """
+    Saves a pandas DataFrame to a CSV file.
+
+    Parameters:
+    -----------
+    data : pd.DataFrame
+        The DataFrame to be saved.
+    file_path : str
+        Path to save the CSV file.
+    """
+    data.to_csv(file_path, index=False)
 
 
 @click.command()
@@ -25,32 +78,22 @@ def main(train_file, test_file, output_dir):
         Path to the input CSV file containing the processed testing dataset.
     output_dir : str
         Directory where the resulting split datasets (X_train, y_train, X_test, y_test) will be saved.
-
-    Outputs:
-    --------
-    Four CSV files saved in the specified output directory:
-    - X_train.csv: Features for the training set.
-    - y_train.csv: Labels for the training set.
-    - X_test.csv: Features for the testing set.
-    - y_test.csv: Labels for the testing set.
     """
     os.makedirs(output_dir, exist_ok=True)
 
     # Load the processed datasets
-    train_df = pd.read_csv(train_file, index_col = 0)
-    test_df = pd.read_csv(test_file, index_col = 0)
+    train_df = read_csv_data(train_file)
+    test_df = read_csv_data(test_file)
 
     # Separate features and target variable for train and test sets
-    X_train = train_df.drop(columns=['Outcome'])
-    y_train = train_df[['Outcome']]
-    X_test = test_df.drop(columns=['Outcome'])
-    y_test = test_df[['Outcome']]
+    X_train, y_train = separate_features_and_target(train_df, 'Outcome')
+    X_test, y_test = separate_features_and_target(test_df, 'Outcome')
 
     # Save the split data as CSV files
-    X_train.to_csv(os.path.join(output_dir, 'X_train.csv'), index=False)
-    y_train.to_csv(os.path.join(output_dir, 'y_train.csv'), index=False)
-    X_test.to_csv(os.path.join(output_dir, 'X_test.csv'), index=False)
-    y_test.to_csv(os.path.join(output_dir, 'y_test.csv'), index=False)
+    save_data(X_train, os.path.join(output_dir, 'X_train.csv'))
+    save_data(y_train, os.path.join(output_dir, 'y_train.csv'))
+    save_data(X_test, os.path.join(output_dir, 'X_test.csv'))
+    save_data(y_test, os.path.join(output_dir, 'y_test.csv'))
 
 
 if __name__ == '__main__':
