@@ -111,7 +111,7 @@ Each row/obersvation from the dataset is an individual that identifies to be a p
 located mainly in the Central and Southern regions of the United States. Each observation recorded has summary statistics regarding features 
 that include the Age, BMI, Blood Pressure, Number of Pregnancies, as well as 
 The Diabetes Pedigree Function (which is a score that gives an idea about how much correlation is between person with diabetes and their family history). 
-The dataset offers comprehensive features for machine learning analysis.
+The dataset offers comprehensive features for machine learning analysis. The Pima Indians Diabetes dataset is not balanced, due to a noticeable disparity between the number of diabetic and non-diabetic patients. Out of the 768 total observations, 268 patients are diagnosed with diabetes, while 500 are not. This imbalance between classes can pose challenges for classification models if not properly addressed. The classification model used can potentially become biased toward predicting the majority class (non-diabetic patients) without proper using a proper scoring metric such as the f1 score and accounting for this imbalance in the models hyper-parameters.
 
 ### Analysis
 
