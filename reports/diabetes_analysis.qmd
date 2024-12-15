@@ -47,7 +47,7 @@ best_param = pd.read_csv("../results/tables/best_params.csv")
 
 accuracy_df = pd.read_csv("../results/tables/accuracy_df.csv")
 
-coeff_table = pd.read_csv("../results/tables/coeff_table.csv", index_col=0)
+coeff_table = pd.read_csv("../results/tables/coeff_table.csv")
 
 pred_results_1_df =  pd.read_csv("../results/tables/pred_results_1_df.csv")
 
