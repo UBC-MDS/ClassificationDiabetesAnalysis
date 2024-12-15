@@ -9,27 +9,22 @@ def validate_diabetes_data(diabetes_dataframe):
     """
     Validates the input diabetes data in the form of a pandas DataFrame against a predefined schema,
     and returns the validated DataFrame.
-
     This function checks that the columns in the input DataFrame conform to the expected types and value ranges.
     It also ensures there are no duplicate rows and no entirely empty rows.
-
     Parameters
     ----------
     diabetes_dataframe : pandas.DataFrame
         The DataFrame containing diabetes-related data, which includes columns such as 'Outcome', 'Pregnancies',
         'Glucose', 'BloodPressure', etc. The data is validated based on specific criteria for each column.
-
     Returns
     -------
     pandas.DataFrame
         The validated DataFrame that conforms to the specified schema.
-
     Raises
     ------
     pandera.errors.SchemaError
         If the DataFrame does not conform to the specified schema (e.g., incorrect data types, out-of-range values,
         duplicate rows, or empty rows).
-
     Notes
     -----
     The following columns are validated:
@@ -48,7 +43,7 @@ def validate_diabetes_data(diabetes_dataframe):
         raise TypeError("Input must be a pandas DataFrame")    
     if diabetes_dataframe.empty:
         raise ValueError("Dataframe must contain observations.")
-    
+
     schema = pa.DataFrameSchema(
         { 
             "Outcome": pa.Column(int, pa.Check.isin([0, 1])),
