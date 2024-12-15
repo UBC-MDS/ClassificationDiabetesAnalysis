@@ -60,9 +60,9 @@ with open('../results/models/random_fit.pkl', 'rb') as s:
 
 # Summary
 
-This study evaluated logistic regression for predicting diabetes in Pima Indian women using features such as glucose levels, BMI, and pregnancies. 
-The model achieved `{python} f"{accuracy_df['accuracy'].values[0] * 100:.0f}%"` accuracy on the test set, 
-outperforming the baseline dummy classifier's `{python} f"{round(mean_cv_score['mean_cv_score'].values[0],2) * 100:.0f}%"`. 
+This study sought to answer the question: Can logistic regression effectively predict diabetes in Pima Indian women using clinical features such as glucose levels, BMI, and pregnancies? 
+To address this, the logistic regression model was evaluated and achieved an accuracy of `{python} f"{accuracy_df['accuracy'].values[0] * 100:.0f}%"` accuracy on the test set, 
+outperforming the baseline dummy classifier's accuracy of `{python} f"{round(mean_cv_score['mean_cv_score'].values[0],2) * 100:.0f}%"`. 
 Glucose was the most significant predictor, followed by BMI and pregnancies, while blood pressure and insulin had weaker impacts. 
 The model misclassified `{python} f"{value_counts_df['misclassifications'].values[0]:,}"` cases, 
 with `{python} f"{fp_fn_df['false negatives'].values[0]:,}"` false negatives and `{python} f"{fp_fn_df['false positives'].values[0]:,}"` false positives, 
@@ -92,8 +92,9 @@ Numerous machine learning techniques have been deployed to develop more efficien
 and effective methods for diagnosing chronic diseases [@battineni2020applications]. 
 Utilizing machine learning methods in diabetes research has been proven to be a critical strategy 
 or harnessing large volumes of diabetes-related data to extract valuable insights [@agarwal2022machine]. 
-Therefore, The goal of this report is to leverage a supervised machine learning model, logistic regression (LR), 
-to evaluate its predictive performance in diagnosing diabetes using a real-world dataset focused specifically on Pima Indian women aged 21 and older.
+This study aims to address the research question: Can logistic regression accurately predict diabetes in Pima Indian women using clinical features such as glucose levels, BMI, and pregnancies? 
+To this end, the objective of this report is to evaluate the predictive performance of logistic regression (LR), a supervised machine learning model, in diagnosing diabetes. 
+The analysis is conducted using a real-world dataset comprising clinical data from Pima Indian women aged 21 and older.
 
 # Methods and Results
 
