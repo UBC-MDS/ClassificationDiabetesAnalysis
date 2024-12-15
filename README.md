@@ -46,9 +46,6 @@ cd diabetes_predictor_py
 ```
 
 ---
-
-### Option 1: Using Docker
-
 **Prerequisites**: Install [Docker](https://www.docker.com/get-started) and ensure it is running on your system.
 
 1. Build and run the Docker container using the provided script:
