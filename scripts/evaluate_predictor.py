@@ -29,6 +29,8 @@ from sklearn.metrics import (
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 from src.save_coeff_table import save_coefficients_table
+from src.read_csv_data import read_csv_data
+from src.save_csv_data import save_csv_data
 
 @click.command()
 @click.option('--x-train-data', type=str, help="Path to X_train data")
@@ -41,9 +43,9 @@ def main(x_train_data, x_test_data, y_test_data, pipeline_from, results_to, plot
 
     
     #read in csv files for training and testing model
-    X_train = pd.read_csv(x_train_data)
-    X_test = pd.read_csv(x_test_data)
-    y_test= pd.read_csv(y_test_data)
+    X_train = read_csv_data(x_train_data)
+    X_test = read_csv_data(x_test_data)
+    y_test= read_csv_data(y_test_data)
 
     # read in random_fit model (pipeline object)
     with open(pipeline_from, 'rb') as f:
@@ -53,7 +55,7 @@ def main(x_train_data, x_test_data, y_test_data, pipeline_from, results_to, plot
         "rank_test_score").head(3)[["mean_test_score",
                                 "mean_train_score"]]
     
-    mean_scores.to_csv(os.path.join(results_to, "mean_scores.csv"), index=False)
+    save_csv_data(mean_scores, os.path.join(results_to, "mean_scores.csv"))
 
     # Best model from the search object
     best_model = random_fit.best_estimator_
@@ -80,7 +82,7 @@ def main(x_train_data, x_test_data, y_test_data, pipeline_from, results_to, plot
     pred_results_1_df['pred_bool'] = pred_results_1_df['pred_bool'] == 1
     pred_results_1_df.head()
 
-    pred_results_1_df.to_csv(os.path.join(results_to, "pred_results_1_df.csv"), index=False)
+    save_csv_data(pred_results_1_df, os.path.join(results_to, "pred_results_1_df.csv"))
 
     # Compute accuracy
     accuracy = best_model.score(X_test, y_test)
@@ -91,11 +93,11 @@ def main(x_train_data, x_test_data, y_test_data, pipeline_from, results_to, plot
     f2_score = fbeta_score(y_test, y_pred, beta = 2, pos_label = 1)
 
     test_scores_df = pd.DataFrame({'accuracy': [accuracy], 'F2 score (beta = 2)': [f2_score]})
-    test_scores_df.to_csv(os.path.join(results_to, "test_scores_df.csv"), index=False)
+    save_csv_data(test_scores_df, os.path.join(results_to, "test_scores_df.csv"))
 
     # Confusion matrix result 
     confusion_matrix_df = pd.DataFrame(confusion_matrix(y_test, y_pred))
-    confusion_matrix_df.to_csv(os.path.join(results_to, "confusion_matrix_df.csv"))
+    save_csv_data(confusion_matrix_df, os.path.join(results_to, "confusion_matrix_df.csv"), index=True)
 
     # Confusion matrix display
     confusion_matrix_plot = ConfusionMatrixDisplay.from_predictions(y_test, y_pred)
@@ -120,7 +122,7 @@ def main(x_train_data, x_test_data, y_test_data, pipeline_from, results_to, plot
         'correct predictions': [value_counts.get(True, 0)], 
         'misclassifications': [value_counts.get(False, 0)]
         })
-    value_counts_df.to_csv(os.path.join(results_to, "value_counts_df.csv"), index=False)
+    save_csv_data(value_counts_df, os.path.join(results_to, "value_counts_df.csv"))
 
     predict_chart = alt.Chart(pred_results_1_df, title = 'Test Set Prediction Accuracy').mark_tick().encode(
         x = alt.X('y_pred_prob_1').title('Positive Class Prediction Prob'),

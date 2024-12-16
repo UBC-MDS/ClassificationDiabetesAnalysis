@@ -36,8 +36,8 @@ def main(train_file, test_file, output_dir):
         Directory where the resulting split datasets (X_train, y_train, X_test, y_test) will be saved.
     """
     # Load the processed datasets
-    diabetes_train = pd.read_csv(train_file, index_col = 0)
-    diabetes_test = pd.read_csv(test_file, index_col = 0)
+    diabetes_train = read_csv_data(train_file)
+    diabetes_test = read_csv_data(test_file)
 
     # Separate features and target variable for train set
     X_train = diabetes_train.drop(columns=['Outcome'])

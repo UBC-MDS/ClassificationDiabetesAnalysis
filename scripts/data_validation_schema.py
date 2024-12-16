@@ -16,6 +16,8 @@ import json
 import logging
 sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
 from src.validate_diabetes_data import validate_diabetes_data
+from src.read_csv_data import read_csv_data
+from src.save_csv_data import save_csv_data
 
 @click.command()
 @click.option('--raw-data', type=str, help="Path to raw data")
@@ -25,7 +27,7 @@ def main(raw_data, data_to):
     and then preprocesses the data to be used in exploratory data analysis.'''
 
     # load data
-    diabetes_original = pd.read_csv(raw_data)
+    diabetes_original = read_csv_data(raw_data)
 
     # validate data
     # Configure logging
@@ -63,7 +65,7 @@ def main(raw_data, data_to):
         diabetes_validated = data
     
     # save processed 
-    diabetes_validated.to_csv(os.path.join(data_to, "diabetes_validated.csv"))
+    save_csv_data(diabetes_validated, os.path.join(data_to, "diabetes_validated.csv"))
 
 if __name__ == '__main__':
     main()

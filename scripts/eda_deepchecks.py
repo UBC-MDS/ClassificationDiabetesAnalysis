@@ -26,6 +26,8 @@ for warning_type in [FutureWarning, DeprecationWarning]:
 
 sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
 from src.data_deepchecks import data_deepchecks
+from src.read_csv_data import read_csv_data
+from src.save_csv_data import save_csv_data
 
 
 @click.command()
@@ -38,12 +40,11 @@ def main(validated_data, data_to, plot_to):
     and pairwise scatterplot in the training data by outcome
     and displays them as a grid of plots. Also saves the plots.'''
 
-    diabetes_validated = pd.read_csv(validated_data, index_col = 0)
+    diabetes_validated = read_csv_data(validated_data)
 
     # EDA
     # print(diabetes.shape)
     diabetes_validated.shape
-
     diabetes_validated.info()
 
     # Create the split
@@ -51,8 +52,8 @@ def main(validated_data, data_to, plot_to):
                                          train_size = 0.7, 
                                          random_state = 123)
     
-    diabetes_train.to_csv(os.path.join(data_to, "diabetes_train.csv"))
-    diabetes_test.to_csv(os.path.join(data_to, "diabetes_test.csv"))
+    save_csv_data(diabetes_train, os.path.join(data_to, "diabetes_train.csv"))
+    save_csv_data(diabetes_test, os.path.join(data_to, "diabetes_test.csv"))
     
     # Explore training data
     census_summary = diabetes_train.describe()
