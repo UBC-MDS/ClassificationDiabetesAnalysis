@@ -31,6 +31,7 @@ The final report can be found [here](https://ubc-mds.github.io/diabetes_predicto
 - [VS Code](https://code.visualstudio.com/download)
 - [VS Code Jupyter Extension](https://marketplace.visualstudio.com/items?itemName=ms-toolsai.jupyter)
 
+---
 ## Usage
 
 To replicate this analysis, follow the steps below. You can run the analysis using **Docker**.
@@ -46,6 +47,8 @@ cd diabetes_predictor_py
 ```
 
 ---
+### Run Analysis
+
 **Prerequisites**: Install [Docker](https://www.docker.com/get-started) and ensure it is running on your system.
 
 1. Build and run the Docker container using the provided script:
@@ -77,7 +80,7 @@ make all
 ### Clean up
 1. Docker: Type `Ctrl` + `C` in the terminal where you launched the container, 
 and then type `docker compose rm` to shut down the container and clean up the resources
-
+---
 
 ## Developer Dependencies
 
