@@ -5,7 +5,7 @@
 # Usage:
 # python scripts/preprocessing_model_fitting.py \
 #     --processed-dir ./data/processed \
-#     --results-dir ./results/tables
+#     --results-dir ./results
 
 import os
 import pandas as pd

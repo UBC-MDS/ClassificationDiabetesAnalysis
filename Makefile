@@ -44,8 +44,8 @@ results/tables/best_params.csv: scripts/preprocessing_model_fitting.py \
 data/processed/X_train.csv \ 
 data/processed/y_train.csv
 	python scripts/preprocessing_model_fitting.py \
-	     --processed-dir ./data/processed/ \
-	     --results-dir ./results
+		--processed-dir ./data/processed \
+	    --results-dir ./results
 
 # Test the model and save results
 results/tables/mean_scores.csv \
@@ -64,58 +64,76 @@ data/processed/X_test.csv \
 data/processed/y_test.csv \ 
 results/models/random_fit.pkl
 	python scripts/evaluate_predictor.py \
-	     --x-train-data='./data/processed/X_train.csv' \
-	     --pipeline-from=results/models/random_fit.pkl \
-	     --x-test-data='./data/processed/X_test.csv' \
-	     --y-test-data='./data/processed/y_test.csv' \
-	     --results-to='./results/tables' \
-	     --plot-to='./results/figures'
+		--x-train-data='./data/processed/X_train.csv' \
+	    --pipeline-from=results/models/random_fit.pkl \
+	    --x-test-data='./data/processed/X_test.csv' \
+	    --y-test-data='./data/processed/y_test.csv' \
+	    --results-to='./results/tables' \
+	    --plot-to='./results/figures'
 
 # Render HTML report
 reports/diabetes_analysis.html: reports/diabetes_analysis.qmd \
-     results/figures/feature_histograms.png \
-     results/figures/correlation_heat_map.png \
-     results/figures/pairwise_scatterplot.png \
-     results/tables/mean_cv_score.csv \
-     results/tables/best_params.csv \
-     results/tables/coeff_table.csv \
-     results/tables/pred_results_1_df.csv \
-     results/tables/accuracy_df.csv \
-     results/tables/value_counts_df.csv \
-     results/tables/fp_fn_df.csv
+results/figures/feature_histograms.png \
+results/figures/correlation_heatmap.png \
+results/figures/pairwise_scatterplot.png \
+results/figures/confusion_matrix_plot.png \
+results/figures/precision_recall_plot.png \
+results/figures/roc_curve.png \
+results/figures/predict_chart.png \
+results/tables/mean_cv_score.csv \
+results/tables/best_params.csv \
+results/tables/coeff_table.csv \
+results/tables/pred_results_1_df.csv \
+results/tables/test_scores_df.csv \
+results/tables/confusion_matrix_df.csv \
+results/tables/value_counts_df.csv \
+results/tables/fp_fn_df.csv
 	quarto render reports/diabetes_analysis.qmd --to html
 
 # Render PDF report
 reports/diabetes_analysis.pdf: reports/diabetes_analysis.qmd \
-     results/figures/feature_histograms.png \
-     results/figures/correlation_heat_map.png \
-     results/figures/pairwise_scatterplot.png \
-     results/tables/mean_cv_score.csv \
-     results/tables/best_params.csv \
-     results/tables/coeff_table.csv \
-     results/tables/pred_results_1_df.csv \
-     results/tables/accuracy_df.csv \
-     results/tables/value_counts_df.csv \
-     results/tables/fp_fn_df.csv
+results/figures/feature_histograms.png \
+results/figures/correlation_heatmap.png \
+results/figures/pairwise_scatterplot.png \
+results/figures/confusion_matrix_plot.png \
+results/figures/precision_recall_plot.png \
+results/figures/roc_curve.png \
+results/figures/predict_chart.png \
+results/tables/mean_cv_score.csv \
+results/tables/best_params.csv \
+results/tables/coeff_table.csv \
+results/tables/pred_results_1_df.csv \
+results/tables/test_scores_df.csv \
+results/tables/confusion_matrix_df.csv \
+results/tables/value_counts_df.csv \
+results/tables/fp_fn_df.csv
 	quarto render reports/diabetes_analysis.qmd --to pdf
 
 # Clean up generated files
 clean:
 	rm -f data/raw/diabetes.csv
-	rm -f data/processed/df.csv \
+	rm -f data/processed/diabetes_validated.csv \
+		  data/processed/diabetes_train.csv \
+		  data/processed/diabetes_test.csv \
 	      data/processed/X_train.csv \
 	      data/processed/y_train.csv \
 	      data/processed/X_test.csv \
 	      data/processed/y_test.csv
 	rm -f results/figures/feature_histograms.png \
-	      results/figures/correlation_heat_map.png \
+	      results/figures/correlation_heatmap.png \
 	      results/figures/pairwise_scatterplot.png \
-	      results/figures/predic_chart.png
+		  results/figures/confusion_matrix_plot.png \
+		  results/figures/precision_recall_plot.png \
+		  results/figures/roc_curve.png \
+	      results/figures/predict_chart.png
 	rm -f results/tables/mean_cv_score.csv \
+		  results/tables/mean_scores.csv \
 	      results/tables/best_params.csv \
 	      results/tables/coeff_table.csv \
+		  results/tables/coeff_table.html \
+		  results/tables/confusion_matrix_df.csv \
 	      results/tables/pred_results_1_df.csv \
-	      results/tables/accuracy_df.csv \
+	      results/tables/test_scores_df.csv \
 	      results/tables/value_counts_df.csv \
 	      results/tables/fp_fn_df.csv
 	rm -f reports/diabetes_analysis.html \
