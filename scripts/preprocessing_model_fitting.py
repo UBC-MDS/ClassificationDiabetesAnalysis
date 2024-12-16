@@ -39,7 +39,7 @@ def main(processed_dir, results_dir):
 
     # Calculate Dummy Classifier's cross-validation score
     dummy_clf = DummyClassifier(strategy="most_frequent")
-    mean_cv_score = cross_val_score(dummy_clf, X_train, y_train, cv=5).mean()
+    mean_cv_score = round(cross_val_score(dummy_clf, X_train, y_train, cv=5).mean(), 2)
 
     # Save the Dummy Classifier's mean CV score
     os.makedirs(os.path.join(results_dir, 'tables'), exist_ok=True)

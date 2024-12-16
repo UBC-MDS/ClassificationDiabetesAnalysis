@@ -33,6 +33,7 @@ def main(x_train_data, x_test_data, y_test_data, pipeline_from, results_to, plot
     mean_scores = pd.DataFrame(random_fit.cv_results_).sort_values(
         "rank_test_score").head(3)[["mean_test_score",
                                 "mean_train_score"]]
+    mean_scores = mean_scores.round(2)
     
     mean_scores.to_csv(os.path.join(results_to, "mean_scores.csv"), index=False)
 
