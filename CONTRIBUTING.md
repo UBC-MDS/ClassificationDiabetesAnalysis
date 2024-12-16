@@ -2,7 +2,7 @@
 
 We welcome any input, feedback, bug reports, and contributions via [Diabetes Predictor Py GitHub Repository](https://github.com/UBC-MDS/diabetes_predictor_py). Your participation helps improve this project and ensures its continued success.
 
-All contributions, suggestions, and feedback are accepted under the [Project's license](./LICENSE). By contributing, you represent that you own or have the authority to submit the contribution under the [Project's license](./LICENSE). All feedback, suggestions, or contributions are not confidential. The project abides by the [UBC-MDS Code of Conduct](https://github.com/UBC-MDS/.github/blob/main/CODE_OF_CONDUCT.md).
+All contributions, suggestions, and feedback are accepted under the [Project's license](./LICENSE.md). By contributing, you represent that you own or have the authority to submit the contribution under the [Project's license](./LICENSE). All feedback, suggestions, or contributions are not confidential. The project abides by the [UBC-MDS Code of Conduct](https://ubc-mds.github.io/resources_pages/code_of_conduct/).
 
 ## How To Contribute Code to Diabetes Predictor Py
 
