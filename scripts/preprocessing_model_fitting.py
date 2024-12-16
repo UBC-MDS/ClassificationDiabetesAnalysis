@@ -2,6 +2,11 @@
 # author: Javier Martinez
 # date: 2024-12-05
 
+# Usage:
+# python scripts/preprocessing_model_fitting.py \
+#     --processed-dir ./data/processed \
+#     --results-dir ./results/tables
+
 import os
 import pandas as pd
 from sklearn.dummy import DummyClassifier

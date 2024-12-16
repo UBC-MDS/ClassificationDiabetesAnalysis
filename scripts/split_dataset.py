@@ -2,6 +2,12 @@
 # author: Javier Martinez
 # date: 2024-12-05
 
+# Usage: 
+# python scripts/split_dataset.py \
+#     --train-file ./data/processed/diabetes_train.csv \
+#     --test-file ./data/processed/diabetes_test.csv \
+#     --output-dir ./data/processed
+
 import os
 import pandas as pd
 import click
@@ -12,8 +18,8 @@ from src.save_csv_data import save_csv_data
 
 
 @click.command()
-@click.option('--train-file', type=str, default="../data/processed/train_df.csv", help="Path to the processed train_df CSV file")
-@click.option('--test-file', type=str, default="../data/processed/test_df.csv", help="Path to the processed test_df CSV file")
+@click.option('--train-file', type=str, default="../data/processed/diabetes_train.csv", help="Path to the processed diabetes_train CSV file")
+@click.option('--test-file', type=str, default="../data/processed/diabetes_test.csv", help="Path to the processed diabetes_test CSV file")
 @click.option('--output-dir', type=str, default="../data/processed/", help="Path to the directory where split data will be saved")
 def main(train_file, test_file, output_dir):
     """
@@ -30,16 +36,16 @@ def main(train_file, test_file, output_dir):
         Directory where the resulting split datasets (X_train, y_train, X_test, y_test) will be saved.
     """
     # Load the processed datasets
-    train_df = read_csv_data(train_file)
-    test_df = read_csv_data(test_file)
+    diabetes_train = pd.read_csv(train_file, index_col = 0)
+    diabetes_test = pd.read_csv(test_file, index_col = 0)
 
     # Separate features and target variable for train set
-    X_train = train_df.drop(columns=['Outcome'])
-    y_train = train_df[['Outcome']]
+    X_train = diabetes_train.drop(columns=['Outcome'])
+    y_train = diabetes_train[['Outcome']]
 
     # Separate features and target variable for test set
-    X_test = test_df.drop(columns=['Outcome'])
-    y_test = test_df[['Outcome']]
+    X_test = diabetes_test.drop(columns=['Outcome'])
+    y_test = diabetes_test[['Outcome']]
 
     # Save the split data as CSV files
     save_csv_data(X_train, os.path.join(output_dir, 'X_train.csv'))

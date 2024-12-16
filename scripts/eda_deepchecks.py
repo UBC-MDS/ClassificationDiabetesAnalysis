@@ -2,8 +2,15 @@
 # author: Jenny Zhang
 # date: 2024-12-03
 
+# Usage: 
+# python scripts/eda_deepchecks.py \
+#     --validated-data=data/processed/diabetes_validated.csv \
+#     --data-to=data/processed \
+#     --plot-to=results/figures
+
 import click
 import os
+import sys
 import pandas as pd
 
 import altair as alt
@@ -40,7 +47,7 @@ def main(validated_data, data_to, plot_to):
     diabetes_validated.info()
 
     # Create the split
-    diabetes_train, diabetes_test = train_test_split(df,
+    diabetes_train, diabetes_test = train_test_split(diabetes_validated,
                                          train_size = 0.7, 
                                          random_state = 123)
     
