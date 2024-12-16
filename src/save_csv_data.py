@@ -1,7 +1,7 @@
 import pandas as pd
 import os
 
-def save_csv_data(data, file_path):
+def save_csv_data(data, file_path, index=False):
     """
     Saves a pandas DataFrame to a CSV file.
 
@@ -11,6 +11,8 @@ def save_csv_data(data, file_path):
         The DataFrame to be saved.
     file_path : str
         Path to save the CSV file.
+    index : bool, optional, default False
+        Whether to write row names (indices). Defaults to False.
 
     Raises:
     -------
@@ -38,7 +40,7 @@ def save_csv_data(data, file_path):
     
     try:
         # Attempt to save the DataFrame
-        data.to_csv(file_path, index=False)
+        data.to_csv(file_path, index=index)
     except PermissionError as e:
         raise PermissionError(f"Permission denied: {e}")
     except IOError as e:

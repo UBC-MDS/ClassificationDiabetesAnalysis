@@ -2,6 +2,11 @@
 # author: Javier Martinez
 # date: 2024-12-05
 
+# Usage:
+# python scripts/preprocessing_model_fitting.py \
+#     --processed-dir ./data/processed \
+#     --results-dir ./results
+
 import os
 import pandas as pd
 from sklearn.dummy import DummyClassifier
@@ -59,6 +64,7 @@ def main(processed_dir, results_dir):
     random_fit = random_search.fit(X_train, y_train)
 
     # Save the pipeline and RandomizedSearchCV results using save_model
+    os.makedirs(os.path.join(results_dir, 'models'), exist_ok=True)
     save_model(log_pipe, os.path.join(results_dir, 'models', 'log_pipe.pkl'))
     save_model(random_fit, os.path.join(results_dir, 'models', 'random_fit.pkl'))
 

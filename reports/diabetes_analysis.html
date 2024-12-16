@@ -6,8 +6,8 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Inder Khera, Jenny Zhang, Jessica Kuo, Javier Martinez (alphabetically ordered)">
-<meta name="dcterms.date" content="2023-12-08">
+<meta name="author" content="Inder Khera, Jenny Zhang, Jessica Kuo, Javier Martinez">
+<meta name="dcterms.date" content="2024-12-15">
 
 <title>Predicting Diabetes in Pima Indian Women Using Logistic Regression</title>
 <style>
@@ -69,16 +69,17 @@ div.csl-indent {
   <ul>
   <li><a href="#summary" id="toc-summary" class="nav-link active" data-scroll-target="#summary">Summary</a></li>
   <li><a href="#introduction" id="toc-introduction" class="nav-link" data-scroll-target="#introduction">Introduction</a></li>
-  <li><a href="#methods-and-results" id="toc-methods-and-results" class="nav-link" data-scroll-target="#methods-and-results">Methods and Results</a>
+  <li><a href="#methods" id="toc-methods" class="nav-link" data-scroll-target="#methods">Methods</a>
   <ul class="collapse">
   <li><a href="#data" id="toc-data" class="nav-link" data-scroll-target="#data">Data</a></li>
   <li><a href="#analysis" id="toc-analysis" class="nav-link" data-scroll-target="#analysis">Analysis</a></li>
   </ul></li>
+  <li><a href="#results" id="toc-results" class="nav-link" data-scroll-target="#results">Results</a></li>
   <li><a href="#discussion" id="toc-discussion" class="nav-link" data-scroll-target="#discussion">Discussion</a></li>
   <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion">Conclusion</a></li>
   <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
   </ul>
-</nav>
+<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="diabetes_analysis.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li></ul></div></nav>
 </div>
 <main class="content" id="quarto-document-content">
 
@@ -94,14 +95,14 @@ div.csl-indent {
     <div>
     <div class="quarto-title-meta-heading">Author</div>
     <div class="quarto-title-meta-contents">
-             <p>Inder Khera, Jenny Zhang, Jessica Kuo, Javier Martinez (alphabetically ordered) </p>
+             <p>Inder Khera, Jenny Zhang, Jessica Kuo, Javier Martinez </p>
           </div>
   </div>
     
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">December 8, 2023</p>
+      <p class="date">December 15, 2024</p>
     </div>
   </div>
   
@@ -115,25 +116,39 @@ div.csl-indent {
 
 <section id="summary" class="level1">
 <h1>Summary</h1>
-<p>This study evaluated logistic regression for predicting diabetes in Pima Indian women using features such as glucose levels, BMI, and pregnancies. The model achieved 75% accuracy on the test set, outperforming the baseline dummy classifier’s 67%. Glucose was the most significant predictor, followed by BMI and pregnancies, while blood pressure and insulin had weaker impacts. The model misclassified 54 cases, with 41 false negatives and 13 false positives, highlighting areas for improvement.</p>
-<p>The results indicate that logistic regression is a promising tool for diabetes screening, providing an efficient way to identify potential cases. However, the high number of false negatives is concerning, as they could lead to delayed diagnoses and treatments. Future improvements could include feature engineering to address misclassifications, testing alternative machine learning models, and incorporating additional data, such as lifestyle or genetic factors. Adding probability estimates for predictions could also enhance its clinical usability by helping prioritize further diagnostic tests. These steps could make the model more reliable and practical for real-world healthcare applications.</p>
+<p>In this study, we aim to address the question of whether clinical features such as glucose levels, BMI, pregnancies, and etc. can effectively predict diabetes in Pima Indian women. The importance of this work lies in improving the early detection of diabetes, a condition that is prevalent and can lead to severe health complications if left untreated. Early prediction and diagnosis of diabetes can significantly improve patient outcomes through timely intervention.</p>
+<p>We built a logistic regression model with hyperparameter optimization for C, and evaluated its performance on the test set. The final classifier achieved an accuracy of 0.750 on the test set, outperforming the baseline dummy classifier’s accuracy of 0.672. Glucose was the most significant predictor, followed by BMI and pregnancies, while blood pressure and insulin had weaker impacts. Out of a total of 217 test cases, the model correctly predicted 162 and misclassified 54. 41 mistakes were predicting patients with diabetes as non-diabetic (i.e.&nbsp;false negatives), while 13 mistakes were predicting healthy (non-diabetic) patients with diabetes (i.e.&nbsp;false positives).</p>
+<p>The results indicate that logistic regression is a promising tool for diabetes screening, providing an efficient way to identify potential cases. However, the high number of false negatives is concerning, as they could lead to delayed diagnoses and treatments. The use of logistic regression itself has some limitations as it assumes linear relationships and may not capture complex interactions between features. Future improvements could include feature engineering of polynomial features, testing alternative machine learning models, reporting more metrics to reflect model performance (i.e.&nbsp;recall and / or f2 score to focus on reducing false negatives), and incorporating additional data, such as lifestyle or genetic factors. Moreover, adding probability estimates for predictions could also enhance its clinical usability by helping prioritize further diagnostic tests. These steps could make the model more reliable and practical for real-world healthcare applications.</p>
 </section>
 <section id="introduction" class="level1">
 <h1>Introduction</h1>
-<p>Diabetes is a serious chronic disease characterized by high levels of glucose in the blood, caused by either insufficient insulin production by the pancreas or the body’s inability to effectively use insulin. It has become a significant global health issue, with its prevalence nearly doubling since 1980, and in 2022, 14% of adults aged 18 and older were diagnosed with diabetes, doubling from 7% in 1990 <span class="citation" data-cites="who_diabetes">(<a href="#ref-who_diabetes" role="doc-biblioref">World Health Organization n.d.</a>)</span>. Diabetes can lead to severe complications, including blindness, kidney failure, heart attacks, strokes, and lower limb amputations. Early detection enables timely interventions, reduces complications, lowers healthcare costs, and improves quality of life and long-term outcomes <span class="citation" data-cites="marshall2006prevention">(<a href="#ref-marshall2006prevention" role="doc-biblioref">Marshall and Flyvbjerg 2006</a>)</span>.</p>
-<p>Artificial intelligence (AI) leverages computer systems and big data to simulate intelligent behavior with minimal human intervention, and within it, machine learning (ML) is a subset of AI methodologies. Since the rise of AI, Machine learning has increasingly been applied in various areas of disease detection and prevention in the healthcare field <span class="citation" data-cites="bini2018artificial">(<a href="#ref-bini2018artificial" role="doc-biblioref">Bini 2018</a>)</span>. Numerous machine learning techniques have been deployed to develop more efficient and effective methods for diagnosing chronic diseases <span class="citation" data-cites="battineni2020applications">(<a href="#ref-battineni2020applications" role="doc-biblioref">Battineni et al. 2020</a>)</span>. Utilizing machine learning methods in diabetes research has been proven to be a critical strategy or harnessing large volumes of diabetes-related data to extract valuable insights <span class="citation" data-cites="agarwal2022machine">(<a href="#ref-agarwal2022machine" role="doc-biblioref">Agarwal and Vadiwala 2022</a>)</span>. Therefore, The goal of this report is to leverage a supervised machine learning model, logistic regression (LR), to evaluate its predictive performance in diagnosing diabetes using a real-world dataset focused specifically on Pima Indian women aged 21 and older.</p>
+<p>Diabetes is a serious chronic disease characterized by high levels of glucose in the blood, which can result from insufficient insulin production or the body’s inability to effectively use insulin. Its prevalence has nearly doubled since 1980, with 14% of adults aged 18 and older diagnosed with diabetes in 2022, up from 7% in 1990 <span class="citation" data-cites="who_diabetes">(<a href="#ref-who_diabetes" role="doc-biblioref">World Health Organization n.d.</a>)</span>. The disease can lead to severe complications, including blindness, kidney failure, heart attacks, strokes, and lower limb amputations. Early detection allows for timely interventions, reducing complications and healthcare costs, and improving quality of life and long-term outcomes <span class="citation" data-cites="marshall2006prevention">(<a href="#ref-marshall2006prevention" role="doc-biblioref">Marshall and Flyvbjerg 2006</a>)</span>.</p>
+<p>Artificial intelligence (AI) leverages computer systems and big data to simulate intelligent behavior with minimal human intervention, and within it, machine learning (ML) is a subset of AI methodologies. Since the rise of AI, Machine learning has increasingly been applied in various areas of disease detection and prevention in the healthcare field <span class="citation" data-cites="bini2018artificial">(<a href="#ref-bini2018artificial" role="doc-biblioref">Bini 2018</a>)</span>. Numerous machine learning techniques have been deployed to develop more efficient and effective methods for diagnosing chronic diseases <span class="citation" data-cites="battineni2020applications">(<a href="#ref-battineni2020applications" role="doc-biblioref">Battineni et al. 2020</a>)</span>. Utilizing machine learning methods in diabetes research has been proven to be a critical strategy or harnessing large volumes of diabetes-related data to extract valuable insights <span class="citation" data-cites="agarwal2022machine">(<a href="#ref-agarwal2022machine" role="doc-biblioref">Agarwal and Vadiwala 2022</a>)</span>.</p>
+<p>This study aims to address the research question: can diabetes in Pima Indian women be accurately predicted using clinical features such as glucose levels, BMI, and pregnancies? The <a href="https://www.kaggle.com/datasets/uciml/pima-indians-diabetes-database/data">dataset</a> used for this analysis, the Pima Indians Diabetes Database, contains clinical data for 768 women aged 21 and older, with 8 input variables: number of pregnancies, plasma glucose concentration, iastolic blood pressure, triceps skinfold thickness, serum insulin, body mass index (BMI), diabetes pedigree function, and age. The output variable is whether or not the woman has diabetes, with two classes: positive (1) or negative (0). To this end, the objective of this report is to evaluate the predictive performance of logistic regression (LR), a supervised machine learning model, in diagnosing diabetes.</p>
 </section>
-<section id="methods-and-results" class="level1">
-<h1>Methods and Results</h1>
-<section id="data" class="level3">
-<h3 class="anchored" data-anchor-id="data">Data</h3>
-<p>The dataset that was used for the analysis of this project was created by Jack W Smith, JE Everhart, WC Dickson, WC Knowler, RS Johannes and sourced from the National Librabry of Medicine database from the National Institues of Health. Access to their respective analysis can be found <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC2245318/">here</a> and access to the dataset can be found via <a href="https://www.kaggle.com/datasets/uciml/pima-indians-diabetes-database/data">kaggle</a> <span class="citation" data-cites="dua2017pima">(<a href="#ref-dua2017pima" role="doc-biblioref">Dua and Graff 2017</a>)</span>. The primary objective of the dataset is to enable diagnostic prediction of whether a patient has diabetes based on specific diagnostic measurements. To ensure consistency and relevance, several constraints were applied to the selection of data instances. Specifically, the dataset includes only female patients who are at least 21 years old and of Pima Indian heritage.</p>
-<p>Each row/obersvation from the dataset is an individual that identifies to be a part of the Pima (also known as The Akimel O’odham) Indeginous group, located mainly in the Central and Southern regions of the United States. Each observation recorded has summary statistics regarding features that include the Age, BMI, Blood Pressure, Number of Pregnancies, as well as The Diabetes Pedigree Function (which is a score that gives an idea about how much correlation is between person with diabetes and their family history). The dataset offers comprehensive features for machine learning analysis.</p>
+<section id="methods" class="level1">
+<h1>Methods</h1>
+<section id="data" class="level2">
+<h2 class="anchored" data-anchor-id="data">Data</h2>
+<p>The dataset that was used for the analysis of this project was created by Jack W Smith, JE Everhart, WC Dickson, WC Knowler, RS Johannes and sourced from the National Librabry of Medicine database from the National Institues of Health. Access to their respective analysis can be found <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC2245318/">here</a> and access to the dataset can be found via <a href="https://www.kaggle.com/datasets/uciml/pima-indians-diabetes-database/data">kaggle</a> <span class="citation" data-cites="dua2017pima">(<a href="#ref-dua2017pima" role="doc-biblioref">Dua and Graff 2017</a>)</span>. The primary objective of the dataset is to enable diagnostic prediction of whether a patient has diabetes based on specific diagnostic measurements. The dataset comprises 768 female patients aged 21 and older, all of whom are of Pima Indian heritage, located primarily in the Central and Southern regions of the United States.</p>
+<p>Each row/obersvation from the dataset is an individual that identifies to be a part of the Pima (also known as The Akimel O’odham) Indeginous group. Each observation recorded has summary statistics regarding features that include the Age, BMI, Blood Pressure, Number of Pregnancies, as well as The Diabetes Pedigree Function (which is a score that gives an idea about how much correlation is between person with diabetes and their family history). The output variable in the dataset is whether the patient is diabetic (outcome), with two classes: diabetic (1) or non-diabetic (0). The dataset is imbalanced, with 268 diabetic and 500 non-diabetic patients. This imbalance poses challenges for classification models, which may become biased toward predicting the majority class. Usually to address this, appropriate evaluation metrics, such as F1 score, should be considered during model evaluation and hyperparameter tuning to avoid the model being skewed towards the non-diabetic class.</p>
+<p>A total of 49 observations were dropped during preliminary data validation. These rows contained meaningless or introducing noise or spurious relationships into the model. Further details on the dropped observations can be found in the validation log <a href="https://github.com/UBC-MDS/diabetes_predictor_py/tree/main/reports">here</a>, under <code>validation_errors.log</code>. The log indicates that most of the dropped data points contain values of 0, which are not plausible for the respective variables. As a result, we suspect these zero values may represent missing data, recorded in this way. If we gain access to the data collectors, we plan to confirm this assumption.</p>
 </section>
-<section id="analysis" class="level3">
-<h3 class="anchored" data-anchor-id="analysis">Analysis</h3>
-<p>Logistic Regression was employed to develop a classification model for predicting whether the patient is diabetic or not (as indicated in the <code>outcome</code> column of the dataset). All variables from the original dataset were used to train the model. The data was split into 70% for the training set and 30% for the testing set. Hyperparameter tuning was performed using <code>RandomizedSearchCV</code>, with the accuracy score serving as the classification metric. All variables were standardized just before model fitting. The analysis was conducted using the Python programming language <span class="citation" data-cites="Python">(<a href="#ref-Python" role="doc-biblioref">Van Rossum and Drake 2009</a>)</span> and several Python packages: numpy <span class="citation" data-cites="harris2020array">(<a href="#ref-harris2020array" role="doc-biblioref">Harris et al. 2020</a>)</span>, Pandas <span class="citation" data-cites="pandas">(<a href="#ref-pandas" role="doc-biblioref">McKinney 2010</a>)</span>, altair <span class="citation" data-cites="altair">(<a href="#ref-altair" role="doc-biblioref">VanderPlas 2018</a>)</span>, altair_ally <span class="citation" data-cites="ostblom2021altair">(<a href="#ref-ostblom2021altair" role="doc-biblioref">Ostblom 2021</a>)</span> and scikit-learn <span class="citation" data-cites="pedregosa2011scikit">(<a href="#ref-pedregosa2011scikit" role="doc-biblioref">Pedregosa et al. 2011</a>)</span>. The code used for this analysis and report is available at: https://github.com/UBC-MDS/diabetes_predictor_py</p>
-<p>We do see 49 observations being dropped post our preliminary data validation as the rows dropped contain meaningless and / or invalid data entries that would unlikely provide useful information but instead introduce noise or spurious relationships into our model. Details of the observations dropped can be found at <a href="https://github.com/UBC-MDS/diabetes_predictor_py/tree/main/reports">here</a> under <code>validation_errors.log</code>. It is clearly shown from the log that majority of data points that are dropped contained values of 0 where levels cannot possibly be, hence, we suspect that the values recorded at 0 are likely missing values recorded in such way, a critical point we will confirm with data collectors if we have access.</p>
+<section id="analysis" class="level2">
+<h2 class="anchored" data-anchor-id="analysis">Analysis</h2>
+<p>In this study, Logistic Regression was employed to develop a classification model for predicting whether a patient has diabetes. The model was trained using all features in the dataset, with the outcome column serving as the target variable. The data was split into a 70% training set and a 30% testing set.</p>
+<p>Hyperparameter tuning was performed using <code>RandomizedSearchCV</code>, and the accuracy score was used as the evaluation metric for model performance. The hyperparameter C of the Logistic Regression model, which controls the trade-off between model complexity and training data fitting, was optimized using a log-uniform distribution ranging from (1 ^{-5}) and (1 ^{5}). The range and log-uniform distribution was chosen to efficiently explore a wide range of values, balancing model complexity and fitting. This approach ensures the model is not overly regularized or overfitted, promoting better generalization to unseen data.</p>
+<p>Standardization was applied to all input variables just before model fitting to ensure that the features were on the same scale. This process was done to improve model performance and to help prevent any single feature from dominating the others. The analysis was conducted using the Python programming language <span class="citation" data-cites="Python">(<a href="#ref-Python" role="doc-biblioref">Van Rossum and Drake 2009</a>)</span> and several Python packages: numpy <span class="citation" data-cites="harris2020array">(<a href="#ref-harris2020array" role="doc-biblioref">Harris et al. 2020</a>)</span>, Pandas <span class="citation" data-cites="pandas">(<a href="#ref-pandas" role="doc-biblioref">McKinney 2010</a>)</span>, altair <span class="citation" data-cites="altair">(<a href="#ref-altair" role="doc-biblioref">VanderPlas 2018</a>)</span>, altair_ally <span class="citation" data-cites="ostblom2021altair">(<a href="#ref-ostblom2021altair" role="doc-biblioref">Ostblom 2021</a>)</span> and scikit-learn <span class="citation" data-cites="pedregosa2011scikit">(<a href="#ref-pedregosa2011scikit" role="doc-biblioref">Pedregosa et al. 2011</a>)</span>. The code used for this analysis and report is available at: https://github.com/UBC-MDS/diabetes_predictor_py</p>
+</section>
+</section>
+<section id="results" class="level1">
+<h1>Results</h1>
+<p>To assess the potential usefulness of each predictor in forecasting the Outcome variable: 0 (Non-Diabetic) and 1 (Diabetic), we visualized the distributions of each predictor from the training dataset, with the distributions color-coded by class (0: blue, 1: orange) as shown in <a href="#fig-feature_histograms" class="quarto-xref">Figure&nbsp;1</a>.</p>
+<p>For the <code>Glucose</code> levels, Non-Diabetic class exhibits a roughly normal distribution, whereas the Diabetic class shows a pronounced shift toward the middle-to-higher range of glucose levels.</p>
+<p>The <code>BMI</code> distribution resembles a normal distribution but skews slightly toward higher values. Similar to Glucose levels, the Diabetic class displays a decent shit towards the middle-to-higher ranges when compared to Non-Diabetic class, suggesting the potential for distinct differences between target groups within this category.</p>
+<p>The <code>Age</code> distribution reveals that individuals aged 20 to 32 are predominantly Non-Diabetic. Beyond age 32, the counts of Diabetic and Non-Diabetic individuals become comparable, with some bins showing a higher count for the Diabetic class, despite fewer overall observations in this group. The Non-Diabetic class leans toward younger ages, while the Diabetic class has a more even distribution across its age range.</p>
+<p>For <code>Pregnancies</code>, <code>Insulin</code>, and <code>DiabetesPedigreeFunction</code> - genetic risk of diabetes based on family history ranging from 0 to 2.5, the lower range of pregnancies is dominated by the Non-Diabetic class, whereas whereas higher numbers are more common in the Diabetic class.</p>
+<p>For <code>Blood Pressure</code> and <code>Skin Thickness</code>, both the Diabetic and Non-Diabetic classes approximates a normal distribution; however, the Non-Diabetic distribution skews slightly towards lower values, while the Diabetic class skews more towards higher values.</p>
 <div id="fig-feature_histograms" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-feature_histograms-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -144,38 +159,30 @@ Figure&nbsp;1: Comparison of the empirical distributions of training data predic
 </figcaption>
 </figure>
 </div>
-<p><a href="#fig-feature_histograms" class="quarto-xref">Figure&nbsp;1</a> illustrates the distribution of each feature, categorized based on the Outcome variable: 0 (Non-Diabetic) and 1 (Diabetic). This visualization provides insights into the relationships between individual features and the target variable.</p>
-<p>For the <code>Glucose</code> levels, Non-Diabetic class exhibits a roughly normal distribution, whereas the Diabetic class shows a pronounced shift toward the middle-to-higher range of glucose levels.</p>
-<p>The <code>BMI</code> distribution resembles a normal distribution but skews slightly toward higher values. Similar to Glucose levels, the Diabetic class displays a decent shit towards the middle-to-higher ranges when compared to Non-Diabetic class, suggesting the potential for distinct differences between target groups within this category.</p>
-<p>The <code>Age</code> distribution reveals that individuals aged 20 to 32 are predominantly Non-Diabetic. Beyond age 32, the counts of Diabetic and Non-Diabetic individuals become comparable, with some bins showing a higher count for the Diabetic class, despite fewer overall observations in this group. The Non-Diabetic class leans toward younger ages, while the Diabetic class has a more even distribution across its age range.</p>
-<p>For <code>Pregnancies</code>, <code>Insulin</code>, and <code>DiabetesPedigreeFunction</code> -genetic risk of diabetes based on family history ranging from 0 to 2.5, the lower range of pregnancies is dominated by the Non-Diabetic class, whereas whereas higher numbers are more common in the Diabetic class.</p>
-<p>For <code>Blood Pressure</code> and <code>Skin Thickness</code>, both the Diabetic and Non-Diabetic classes approximates a normal distribution; however, the Non-Diabetic distribution skews slightly towards lower values, while the Diabetic class skews more towards higher values.</p>
-<div id="fig-correlation_heat_map" class="quarto-float quarto-figure quarto-figure-center anchored">
+<p>We also examined the presence of multicollinearity among the predictors in <a href="#fig-correlation_heatmap" class="quarto-xref">Figure&nbsp;2</a>, as it could be problematic when conducting a Logistic Regression. We see that highest level of correlation is between Age and Pregnancies (0.626 via Spearman, and 0.566 by Pearson). Since this is below the threshold of 0.7, we can conclude that all features’ coefficients are suitable and will not cause any multicollinearity in our model.</p>
+<div id="fig-correlation_heatmap" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-correlation_heat_map-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="../results/figures/correlation_heat_map.png" class="img-fluid figure-img" style="width:80.0%">
+<div aria-describedby="fig-correlation_heatmap-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="../results/figures/correlation_heatmap.png" class="img-fluid figure-img" style="width:80.0%">
 </div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-correlation_heat_map-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-correlation_heatmap-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;2: Pearson and Spearman correlations across all features.
 </figcaption>
 </figure>
 </div>
-<p><a href="#fig-correlation_heat_map" class="quarto-xref">Figure&nbsp;2</a> shows the correlation between all of the respective features. The main reasoning to analyze this is to see if there is any multicollinearity between any of the features which could be problematic when conducting a Logistic Regression. We see that highest level of correlation is between Age and Pregnancies (0.626 via Spearman, and 0.566 by Pearson). Since this is below the threshold of 0.7, we can conclude that all features’ coefficients are suitable and will not cause any multicollinearity in our model.</p>
+<p>Finally, we looked at the pairwise scatterplots between features in <a href="#fig-pairwise_scatterplot" class="quarto-xref">Figure&nbsp;3</a> to detect any additional patterns. For the most part, the features do not display noticeable trends. However, Skin Thickness and BMI show a moderate visual relationship, which is intuitive since higher body mass is generally associated with increased skin thickness.</p>
 <div id="fig-pairwise_scatterplot" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-pairwise_scatterplot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="../results/figures/pairwise_scatterplot.png" class="img-fluid figure-img" style="width:120.0%">
+<img src="../results/figures/pairwise_scatterplot.png" class="img-fluid figure-img" style="width:110.0%">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-pairwise_scatterplot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;3: Pairwise scatterplots between each of features in dataset to visualize relationship.
 </figcaption>
 </figure>
 </div>
-<p><a href="#fig-pairwise_scatterplot" class="quarto-xref">Figure&nbsp;3</a> illustrates the relationships between the features. For the most part, the features do not display noticeable trends. However, Skin Thickness and BMI show a moderate visual relationship, which is intuitive since higher body mass is generally associated with increased skin thickness.</p>
-<p>Referring back to the correlation graph, Skin Thickness and BMI have a Spearman correlation of 0.446. This value is below the multicollinearity threshold of 0.7, indicating that these features do not pose a risk of multicollinearity in our model.</p>
-<p>We then further split our dataset into X and y for both the training and test.</p>
-<p>As a result, the Dummy Classifier acts as our baseline for conducting our initial analysis. The Dummy Baseline gives us a score of around 0.67.</p>
-<p>We will use a Logistic Regression model for classification. Given the presence of outliers in our features, it is advisable to apply StandardScaler() to normalize the feature values before fitting the model. This ensures that all features are on a similar scale, improving the model’s performance and stability. We optimize the hyperparameter <code>C</code> for our Logistic Regression model using a random search approach and have identified C = 0.027 as the optimal C to be used in our Logistic Regression model.</p>
+<p>We used the Dummy Classifier to act as our baseline for conducting our initial analysis. The Dummy Baseline gives us a score of around 0.672.</p>
+<p>We then used Logistic Regression model for classification. We optimized the hyperparameter <code>C</code> using a random search approach and have identified C = 0.027 as the optimal C to be used in our Logistic Regression model.</p>
 <div class="cell" data-execution_count="2">
 <div id="tbl-coeff_table" class="cell quarto-float quarto-figure quarto-figure-center anchored" data-execution_count="2">
 <figure class="quarto-float quarto-float-tbl figure">
@@ -183,7 +190,7 @@ Figure&nbsp;3: Pairwise scatterplots between each of features in dataset to visu
 Table&nbsp;1: Logistic regression feature importance measured by coefficients.
 </figcaption>
 <div aria-describedby="tbl-coeff_table-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="6">
+<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="10">
 <table class="do-not-create-environment cell caption-top table table-sm table-striped small">
 <thead>
 <tr class="header">
@@ -194,44 +201,44 @@ Table&nbsp;1: Logistic regression feature importance measured by coefficients.
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: right;">1</td>
-<td style="text-align: left;">Glucose</td>
-<td style="text-align: right;">0.723708</td>
-</tr>
-<tr class="even">
-<td style="text-align: right;">5</td>
-<td style="text-align: left;">BMI</td>
-<td style="text-align: right;">0.3887</td>
-</tr>
-<tr class="odd">
 <td style="text-align: right;">0</td>
-<td style="text-align: left;">Pregnancies</td>
-<td style="text-align: right;">0.228731</td>
+<td style="text-align: left;">Glucose</td>
+<td style="text-align: right;">0.724</td>
 </tr>
 <tr class="even">
-<td style="text-align: right;">7</td>
-<td style="text-align: left;">Age</td>
-<td style="text-align: right;">0.194047</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">BMI</td>
+<td style="text-align: right;">0.389</td>
 </tr>
 <tr class="odd">
-<td style="text-align: right;">6</td>
-<td style="text-align: left;">DiabetesPedigreeFunction</td>
-<td style="text-align: right;">0.160928</td>
-</tr>
-<tr class="even">
 <td style="text-align: right;">2</td>
-<td style="text-align: left;">BloodPressure</td>
-<td style="text-align: right;">0.0480461</td>
-</tr>
-<tr class="odd">
-<td style="text-align: right;">4</td>
-<td style="text-align: left;">Insulin</td>
-<td style="text-align: right;">0.00196834</td>
+<td style="text-align: left;">Pregnancies</td>
+<td style="text-align: right;">0.229</td>
 </tr>
 <tr class="even">
 <td style="text-align: right;">3</td>
+<td style="text-align: left;">Age</td>
+<td style="text-align: right;">0.194</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">4</td>
+<td style="text-align: left;">DiabetesPedigreeFunction</td>
+<td style="text-align: right;">0.161</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">5</td>
+<td style="text-align: left;">BloodPressure</td>
+<td style="text-align: right;">0.048</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">6</td>
 <td style="text-align: left;">SkinThickness</td>
-<td style="text-align: right;">-0.00650682</td>
+<td style="text-align: right;">-0.007</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">7</td>
+<td style="text-align: left;">Insulin</td>
+<td style="text-align: right;">0.002</td>
 </tr>
 </tbody>
 </table>
@@ -240,21 +247,56 @@ Table&nbsp;1: Logistic regression feature importance measured by coefficients.
 </figure>
 </div>
 </div>
-<p>Having determined the best Logistic Regression model for our analysis, we further explore feature importance with coefficients. Based on the heatmap and <a href="#tbl-coeff_table" class="quarto-xref">Table&nbsp;1</a> above, the feature importance coefficients for the logistic regression model predicting diabetes reveal that <code>Glucose</code> (0.39) is the strongest positive influence, followed by <code>BMI</code> (0.05), <code>Pregnancies</code> (0.72), <code>Age</code> (-0.01), and <code>DiabetesPedigreeFunction</code> (0.0). The negative influence <code>SkinThickness</code> (0.19) along with the remaining positive features <code>BloodPressure</code> (0.23) and <code>Insulin</code> (0.16), have weak impacts on the prediction, with their effects being less pronounced.</p>
-<p>We then evaluate the best Logistic Regression model, obtained from the hyperparameter search, on the test set. In addition, to enhance the model’s practical use in a clinical setting, we are providing and reporting probability estimates for the predictions of diabetes. Offering probability estimates would allow clinicians to gauge the model’s confidence in its predictions. This would give clinicians the opportunity to conduct additional diagnostic tests if the predicted probability for the outcome (i.e.&nbsp;diagnosis of prediction) is not sufficiently high.</p>
-<p>Our prediction model performed decent on test data, with a final overall accuracy of 75%. In addition, looking through the prediction results dataframe, there are a total of 54 mistakes. Of which, 41 mistakes were predicting diabetic as non-diabetic (false negatives) and 13 mistakes were made predicting diabetic as non-diabetic (false positives). Considering implementation in clinic, there is room for improvement in the algorithm as false negatives are more harmful than false positives, and we should aim to lower false positives even further.</p>
-<p>Moreover, visualizing prediction probabilities alongside the prediction accuracy for each test sample provides a clearer understanding of the model’s performance. This approach allows us to easily assess how well the model predicts, while also highlighting patients who were misdiagnosed. Particularly, it helps us focus on false negatives, as the consequences of these errors are more critical in a clinical context.</p>
-<div id="fig-test_set_pred_accur" class="quarto-float quarto-figure quarto-figure-center anchored">
+<p>Having determined the best Logistic Regression model for our analysis, we further explore feature importance with coefficients. Based on the <a href="#tbl-coeff_table" class="quarto-xref">Table&nbsp;1</a> above, the feature importance coefficients for the logistic regression model predicting diabetes reveal that <code>Glucose</code> (0.724) is the strongest positive influence, followed by <code>BMI</code> (0.389), <code>Pregnancies</code> (0.229), <code>Age</code> (0.194), and <code>DiabetesPedigreeFunction</code> (0.161). The negative influence <code>SkinThickness</code> (-0.007) along with the remaining positive features <code>BloodPressure</code> (0.048) and <code>Insulin</code> (0.002), have weak impacts on the prediction, with their effects being less pronounced.</p>
+<p>We then evaluate the best Logistic Regression model, obtained from the hyperparameter search, on the test set. Our prediction model performed decent on test data, with a final overall accuracy of 0.750. In addition, looking through confusion matrix (<a href="#fig-test_confusion_matrix" class="quarto-xref">Figure&nbsp;4</a>), there are a total of 54 mistakes. Of which, 41 mistakes were predicting diabetic as non-diabetic (false negatives) and 13 mistakes were made predicting diabetic as non-diabetic (false positives). Considering implementation in clinic, there is room for improvement in the algorithm as false negatives are more harmful than false positives, and we should aim to lower false positives even further.</p>
+<div id="fig-test_confusion_matrix" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-test_set_pred_accur-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="../results/figures/predic_chart.png" class="img-fluid figure-img" style="width:80.0%">
+<div aria-describedby="fig-test_confusion_matrix-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="../results/figures/confusion_matrix_plot.png" class="img-fluid figure-img" style="width:60.0%">
 </div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-test_set_pred_accur-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;4: Test Set Prediction Accuracy by Prediction Probability.
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-test_confusion_matrix-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;4: Confusion Matrix of Test Set Prediction Accuracy
 </figcaption>
 </figure>
 </div>
-</section>
+<p>In this report, we have used the default 0.5 threshold in Logistic Regression model to predict the patient being diabetic or non-diabetic. To better evaluate model’s performance across all thresholds, we also presented here the Precision Recall curve (<a href="#fig-test_pr" class="quarto-xref">Figure&nbsp;5</a>) and the ROC curve (<a href="#fig-test_roc" class="quarto-xref">Figure&nbsp;6</a>) - assessing the tradeoff between true positive and false positive rates. For both plots, we did not observe an optimal threshold that can achieve high precision, high recall, and low false positive rate all at once. Therefore, further improvements on the Logistic Regression model or alternative models should be contemplated in further research.</p>
+<div style="display: flex; justify-content: space-between;">
+<figure style="width: 80%;" class="figure">
+<div id="fig-test_pr" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-test_pr-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="../results/figures/precision_recall_plot.png" class="img-fluid figure-img" style="width:60.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-test_pr-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;5: Precision Recall Curve of Test Set Predictions
+</figcaption>
+</figure>
+</div>
+</figure>
+<figure style="width: 80%;" class="figure">
+<div id="fig-test_roc" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-test_roc-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="../results/figures/roc_curve.png" class="img-fluid figure-img" style="width:60.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-test_roc-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;6: ROC Curve of Test Set Predictions
+</figcaption>
+</figure>
+</div>
+</figure>
+</div>
+<p>To improve the model’s clinical utility, we provide a visualization of estimated prediction probabilities (<a href="#fig-test_pred_accur" class="quarto-xref">Figure&nbsp;7</a>) for diabetes predictions. This allows clinicians to assess the model’s confidence in its predictions and decide whether additional diagnostic tests are needed if the probability is not sufficiently high. Visualizing these probabilities alongside prediction accuracy offers a clearer understanding of the model’s performance, highlighting both correct predictions and misdiagnoses, especially false negatives, which are of particular concern in a clinical setting due to their critical consequences.</p>
+<div id="fig-test_pred_accur" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-test_pred_accur-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="../results/figures/predict_chart.png" class="img-fluid figure-img" style="width:60.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-test_pred_accur-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;7: Test Set Prediction Accuracy by Prediction Probability.
+</figcaption>
+</figure>
+</div>
 </section>
 <section id="discussion" class="level1">
 <h1>Discussion</h1>
@@ -263,7 +305,7 @@ Figure&nbsp;4: Test Set Prediction Accuracy by Prediction Probability.
 </section>
 <section id="conclusion" class="level1">
 <h1>Conclusion</h1>
-<p>In conclusion, this study demonstrated the effectiveness of logistic regression in predicting diabetes among Pima Indian women using diagnostic features such as glucose, BMI, and pregnancies. With an accuracy of 75% on the test set, the model outperformed the baseline Dummy Classifier’s 67%. Glucose was identified as the most influential predictor, followed by BMI and pregnancies, while features like blood pressure, insulin, and skin thickness had weaker impacts. However, the model’s 54 misclassifications, particularly the 41 false negatives, underscore the need for further refinement to minimize the risk of undiagnosed cases.</p>
+<p>In conclusion, this study demonstrated the effectiveness of logistic regression in predicting diabetes among Pima Indian women using diagnostic features such as glucose, BMI, and pregnancies. With an accuracy of 0.750 on the test set, the model outperformed the baseline Dummy Classifier’s 0.672. Glucose was identified as the most influential predictor, followed by BMI and pregnancies, while features like blood pressure, insulin, and skin thickness had weaker impacts. However, the model’s 54 misclassifications, particularly the 41 false negatives, underscore the need for further refinement to minimize the risk of undiagnosed cases.</p>
 <p>These findings highlight logistic regression’s potential as an initial screening tool in clinical settings, offering a data-driven approach to early diabetes detection. Nevertheless, improvements are essential to enhance its accuracy and practical utility. Strategies such as feature engineering, alternative machine learning models, and the incorporation of additional data, such as lifestyle or genetic factors, could further optimize performance. Additionally, providing probability estimates for predictions could enhance clinical decision-making by identifying cases requiring further diagnostics. With these refinements, the model could become a valuable tool for reducing complications and improving outcomes in diabetes care.</p>
 </section>
 <section id="references" class="level1 unnumbered">
@@ -276,28 +318,28 @@ Figure&nbsp;4: Test Set Prediction Accuracy by Prediction Probability.
 Agarwal, Neetu, and Ronak Vadiwala. 2022. <span>“Machine Learning and Data Mining Methods in Diabetes Research.”</span> <em>Asian Journal of Organic &amp; Medicinal Chemistry</em>.
 </div>
 <div id="ref-battineni2020applications" class="csl-entry" role="listitem">
-Battineni, Gopi, Getu Gamo Sagaro, Nalini Chinatalapudi, and Francesco Amenta. 2020. <span>“Applications of Machine Learning Predictive Models in the Chronic Disease Diagnosis.”</span> <em>Journal of Personalized Medicine</em> 10 (2): 21.
+Battineni, Gopi, Getu Gamo Sagaro, Nalini Chinatalapudi, and Francesco Amenta. 2020. <span>“Applications of Machine Learning Predictive Models in the Chronic Disease Diagnosis.”</span> <em>Journal of Personalized Medicine</em> 10 (2): 21. <a href="https://doi.org/10.3390/jpm10020021">https://doi.org/10.3390/jpm10020021</a>.
 </div>
 <div id="ref-bini2018artificial" class="csl-entry" role="listitem">
-Bini, Stefano A. 2018. <span>“Artificial Intelligence, Machine Learning, Deep Learning, and Cognitive Computing: What Do These Terms Mean and How Will They Impact Health Care?”</span> <em>The Journal of Arthroplasty</em> 33 (8): 2358–61.
+Bini, Stefano A. 2018. <span>“Artificial Intelligence, Machine Learning, Deep Learning, and Cognitive Computing: What Do These Terms Mean and How Will They Impact Health Care?”</span> <em>The Journal of Arthroplasty</em> 33 (8): 2358–61. <a href="https://doi.org/10.1016/j.arth.2018.02.067">https://doi.org/10.1016/j.arth.2018.02.067</a>.
 </div>
 <div id="ref-dua2017pima" class="csl-entry" role="listitem">
 Dua, Dheeru, and Casey Graff. 2017. <span>“Pima Indians Diabetes Database.”</span> <a href="https://www.kaggle.com/datasets/uciml/pima-indians-diabetes-database/data" class="uri">https://www.kaggle.com/datasets/uciml/pima-indians-diabetes-database/data</a>.
 </div>
 <div id="ref-harris2020array" class="csl-entry" role="listitem">
-Harris, Charles R, K Jarrod Millman, Stéfan J Van Der Walt, Ralf Gommers, Pauli Virtanen, David Cournapeau, Eric Wieser, et al. 2020. <span>“Array Programming with NumPy.”</span> <em>Nature</em> 585 (7825): 357–62.
+Harris, Charles R, K Jarrod Millman, Stéfan J Van Der Walt, Ralf Gommers, Pauli Virtanen, David Cournapeau, Eric Wieser, et al. 2020. <span>“Array Programming with NumPy.”</span> <em>Nature</em> 585 (7825): 357–62. <a href="https://doi.org/10.1038/s41586-020-2649-2">https://doi.org/10.1038/s41586-020-2649-2</a>.
 </div>
 <div id="ref-marshall2006prevention" class="csl-entry" role="listitem">
-Marshall, Sally M, and Allan Flyvbjerg. 2006. <span>“Prevention and Early Detection of Vascular Complications of Diabetes.”</span> <em>Bmj</em> 333 (7566): 475–80.
+Marshall, Sally M, and Allan Flyvbjerg. 2006. <span>“Prevention and Early Detection of Vascular Complications of Diabetes.”</span> <em>Bmj</em> 333 (7566): 475–80. <a href="https://doi.org/10.1136/bmj.38908.704828.AE">https://doi.org/10.1136/bmj.38908.704828.AE</a>.
 </div>
 <div id="ref-pandas" class="csl-entry" role="listitem">
-McKinney, Wes. 2010. <span>“Data Structures for Statistical Computing in Python.”</span> In <em>Proceedings of the 9th Python in Science Conference</em>, edited by Stéfan van der Walt and Jarrod Millman, =51–56.
+McKinney, Wes. 2010. <span>“Data Structures for Statistical Computing in Python.”</span> In <em>Proceedings of the 9th Python in Science Conference</em>, edited by Stéfan van der Walt and Jarrod Millman, 51–56. <a href="https://doi.org/10.25080/Majora-92bf1922-00a">https://doi.org/10.25080/Majora-92bf1922-00a</a>.
 </div>
 <div id="ref-ostblom2021altair" class="csl-entry" role="listitem">
 Ostblom, Joakim. 2021. <span>“Altair_ally: Enhancing Altair for Statistical Visualization.”</span> <a href="https://github.com/jostblom/altair_ally" class="uri">https://github.com/jostblom/altair_ally</a>.
 </div>
 <div id="ref-pedregosa2011scikit" class="csl-entry" role="listitem">
-Pedregosa, Fabian, Gaël Varoquaux, Alexandre Gramfort, Vincent Michel, Bertrand Thirion, Olivier Grisel, Mathieu Blondel, et al. 2011. <span>“Scikit-Learn: Machine Learning in Python.”</span> <em>The Journal of Machine Learning Research</em> 12: 2825–30.
+Pedregosa, Fabian, Gaël Varoquaux, Alexandre Gramfort, Vincent Michel, Bertrand Thirion, Olivier Grisel, Mathieu Blondel, et al. 2011. <span>“Scikit-Learn: Machine Learning in Python.”</span> <em>The Journal of Machine Learning Research</em> 12: 2825–30. <a href="https://doi.org/10.48550/arXiv.1201.0490">https://doi.org/10.48550/arXiv.1201.0490</a>.
 </div>
 <div id="ref-Python" class="csl-entry" role="listitem">
 Van Rossum, Guido, and Fred L. Drake. 2009. <em>Python 3 Reference Manual</em>. Scotts Valley, CA: CreateSpace.

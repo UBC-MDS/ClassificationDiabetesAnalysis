@@ -2,15 +2,22 @@
 # author: Jenny Zhang
 # date: 2024-12-03
 
+# Usage:
+# python scripts/data_validation_schema.py \
+#     --raw-data=data/raw/diabetes.csv \
+#     --data-to=data/processed
+
 import click
 import os
-import numpy as np
+import sys
 import pandas as pd
 import pandera as pa
 import json
 import logging
 sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
-from src.validate_data import validate_data
+from src.validate_diabetes_data import validate_diabetes_data
+from src.read_csv_data import read_csv_data
+from src.save_csv_data import save_csv_data
 
 @click.command()
 @click.option('--raw-data', type=str, help="Path to raw data")
@@ -20,12 +27,12 @@ def main(raw_data, data_to):
     and then preprocesses the data to be used in exploratory data analysis.'''
 
     # load data
-    df_original = pd.read_csv(raw_data)
+    diabetes_original = read_csv_data(raw_data)
 
     # validate data
     # Configure logging
     logging.basicConfig(
-        filename="validation_errors.log",
+        filename=os.path.join("reports", "validation_errors.log"),
         filemode="w",
         format="%(asctime)s - %(message)s",
         level=logging.INFO,
@@ -33,7 +40,7 @@ def main(raw_data, data_to):
 
     # Initialize error cases DataFrame
     error_cases = pd.DataFrame()
-    data = df_original.copy()
+    data = diabetes_original.copy()
 
    # Validate data and handle errors
     try:
@@ -48,17 +55,17 @@ def main(raw_data, data_to):
     # Filter out invalid rows based on the error cases
     if not error_cases.empty:
         invalid_indices = error_cases["index"].dropna().unique()
-        df = (
+        diabetes_validated = (
             data.drop(index=invalid_indices)
             .reset_index(drop=True)
             .drop_duplicates()
             .dropna(how="all")
         )
     else:
-        df = data
+        diabetes_validated = data
     
     # save processed 
-    df.to_csv(os.path.join(data_to, "df.csv"))
+    save_csv_data(diabetes_validated, os.path.join(data_to, "diabetes_validated.csv"))
 
 if __name__ == '__main__':
     main()

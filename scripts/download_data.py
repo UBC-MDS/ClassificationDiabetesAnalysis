@@ -2,11 +2,15 @@
 # author: Jenny Zhang
 # date: 2024-12-03
 
+# Usage:
+# python scripts/download_data.py \
+#     --url="https://www.kaggle.com/api/v1/datasets/download/uciml/pima-indians-diabetes-database" \
+#     --write-to=data/raw
+
 import click
 import os
-import zipfile
-import requests
 import sys
+
 sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
 from src.read_zip import read_zip
 

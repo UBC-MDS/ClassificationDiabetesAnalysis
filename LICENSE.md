@@ -19,10 +19,14 @@ The licensor cannot revoke these freedoms as long as you follow the license term
 
 - **Attribution** — You must give appropriate credit (mentioning that your work is derived from work that is Copyright © Inder Khera, Jenny Zhang, Jessica Kuo, and Javier Martinez), provide a link to the license, and indicate if changes were made. You may do so in any reasonable manner, but not in any way that suggests the licensor endorses you or your use.
 
-- The next files are based on work provided by Tiffany A. Timbers in the [`dsci522-dockerfile-practice repository`](https://github.com/ttimbers/dsci522-dockerfile-practice)
-- - docker-publish.yml
-- - Dockerfile
-- - docker-compose.yml
+- The following files are referenced from work provided by Tiffany A. Timbers in the [`breast_cancer_predictor_py repository`](https://github.com/ttimbers/breast-cancer-predictor/tree/3.0.0) and [`dsci522-dockerfile-practice repository`](https://github.com/ttimbers/dsci522-dockerfile-practice)
+    - read_zip.py
+    - test_read_zip.py
+    - validate_diabetes_data.py
+    - test_validate_data.py
+    - docker-publish.yml
+    - Dockerfile
+    - docker-compose.yml
 
 - **NonCommercial** — You may not use the material for commercial purposes.
 - **ShareAlike** — If you remix, transform, or build upon the material, you must distribute your contributions under the same license as the original.
@@ -39,7 +43,33 @@ No warranties are given. The license may not give you all of the permissions nec
 
 MIT License
 
-Copyright (c) 2024 Inder Khera & Jenny Zhang
+Copyright (c) 2024 Inder Khera, Jenny Zhang, Jessica Kuo, Javier Martinez
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+---
+
+For the portions of the project that are derived from [`breast_cancer_predictor_py repository`](https://github.com/ttimbers/breast-cancer-predictor/tree/3.0.0) and [`dsci522-dockerfile-practice repository`](https://github.com/ttimbers/dsci522-dockerfile-practice):
+
+MIT License
+
+Copyright (c) 2023 Tiffany A. Timbers
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
