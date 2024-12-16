@@ -9,7 +9,8 @@ import pandas as pd
 import pandera as pa
 import json
 import logging
-
+sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
+from src.validate_data import validate_data
 
 @click.command()
 @click.option('--raw-data', type=str, help="Path to raw data")
@@ -30,33 +31,13 @@ def main(raw_data, data_to):
         level=logging.INFO,
     )
 
-    # Define schema
-    schema = pa.DataFrameSchema(
-        { 
-            "Outcome": pa.Column(int, pa.Check.isin([0, 1])),
-            "Pregnancies": pa.Column(int, pa.Check.between(0, 15), nullable=True),
-            "Glucose": pa.Column(int, pa.Check.between(50, 240), nullable=True),
-            "BloodPressure": pa.Column(int, pa.Check.between(40, 180), nullable=True),
-            "SkinThickness": pa.Column(int, pa.Check.between(0, 80), nullable=True),
-            "Insulin": pa.Column(int, pa.Check.between(0, 800), nullable=True),
-            "BMI": pa.Column(float, pa.Check.between(0, 65), nullable=True),
-            "DiabetesPedigreeFunction": pa.Column(float, pa.Check.between(0, 2.5), nullable=True),
-            "Age": pa.Column(int, pa.Check.between(18, 90), nullable=True),
-        },
-        checks=[
-            pa.Check(lambda df: ~df.duplicated().any(), error="Duplicate rows found."),
-            pa.Check(lambda df: ~(df.isna().all(axis=1)).any(), error="Empty rows found.")
-        ],
-        drop_invalid_rows=False,  # Ensure this is properly closed
-    )
-
     # Initialize error cases DataFrame
     error_cases = pd.DataFrame()
     data = df_original.copy()
 
-    # Validate data and handle errors
+   # Validate data and handle errors
     try:
-        validated_data = schema.validate(data, lazy=True)
+        validated_data = validate_diabetes_data(data)
     except pa.errors.SchemaErrors as e:
         error_cases = e.failure_cases
 

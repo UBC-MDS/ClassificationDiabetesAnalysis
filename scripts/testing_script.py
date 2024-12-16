@@ -8,14 +8,9 @@ import altair as alt
 import numpy as np
 import pandas as pd
 import pickle
-from sklearn import set_config
-from sklearn.model_selection import train_test_split
-from sklearn.preprocessing import StandardScaler
-from sklearn.compose import make_column_transformer, make_column_selector
-from sklearn.neighbors import KNeighborsClassifier
-from sklearn.pipeline import make_pipeline
-from sklearn.model_selection import GridSearchCV
-from sklearn.metrics import fbeta_score, make_scorer
+import sys
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+from src.save_coeff_table import save_coefficients_table
 @click.command()
 @click.option('--x-train-data', type=str, help="Path to X_train data")
 @click.option('--x-test-data', type=str, help="Path to X_train data")
@@ -44,26 +39,14 @@ def main(x_train_data, x_test_data, y_test_data, pipeline_from, results_to, plot
     # Best model from the search object
     best_model = random_fit.best_estimator_
 
-    # Retrieve the coefficients and feature names
-    coefficients = best_model.named_steps['logisticregression'].coef_.flatten()
-    features = X_train.columns 
+    coeff_df_sorted = save_coefficients_table(best_model, X_train, results_to)
     
-    # Create a DataFrame to display the feature names and corresponding coefficients
-    coeff_df = pd.DataFrame({
-        'Features': features,
-        'Coefficients': coefficients
-    })
-
-    # Sort by 'Coefficients' in descending order to see the most important features first
-    coeff_df_sorted = coeff_df.sort_values(by = 'Coefficients', ascending = False)
 
     coeff_table = coeff_df_sorted.style.format(
         precision = 3
         ).background_gradient(
             axis = None
             )
-    # Save the sorted coefficients to a CSV file
-    coeff_df_sorted.to_csv(os.path.join(results_to, "coeff_table.csv"))
     coeff_table.to_html(os.path.join(results_to, 'coeff_table.html'))
 
     # Make predictions using the best model

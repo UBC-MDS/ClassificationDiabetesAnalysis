@@ -46,9 +46,6 @@ cd diabetes_predictor_py
 ```
 
 ---
-
-### Option 1: Using Docker
-
 **Prerequisites**: Install [Docker](https://www.docker.com/get-started) and ensure it is running on your system.
 
 1. Build and run the Docker container using the provided script:
@@ -58,7 +55,8 @@ cd diabetes_predictor_py
    ```
    This will set up the Conda environment inside a Docker container and build the Docker image.
 
-2. Once the container is running, access the server by opening the link shown in the terminal (e.g., http://127.0.0.1:8888/lab?token={your_token})
+2. Once the container is running, access the server by copy and paste the link to your browser. The link is shown in the terminal output that starts with http://127... (e.g., http://127.0.0.1:8888/lab?token={your_token})
+   ![docker container link](images/docker%20compose%20up.png)
 
 3. To run the analysis, open a terminal and run the following commands:
    ```
