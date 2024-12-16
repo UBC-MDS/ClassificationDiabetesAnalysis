@@ -31,13 +31,14 @@ The final report can be found [here](https://ubc-mds.github.io/diabetes_predicto
 - [VS Code](https://code.visualstudio.com/download)
 - [VS Code Jupyter Extension](https://marketplace.visualstudio.com/items?itemName=ms-toolsai.jupyter)
 
----
+
 ## Usage
 
 To replicate this analysis, follow the steps below. You can run the analysis using **Docker**.
 
 **Prerequisites**: Please note that the instructions in this section require executing them in a Unix-based shell.
 
+---
 ### Setup
 
 First, clone this GitHub repository and navigate to its root directory:
