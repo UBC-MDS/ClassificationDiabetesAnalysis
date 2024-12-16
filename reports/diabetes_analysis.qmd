@@ -246,14 +246,10 @@ For both plots, we did not observe an optimal threshold that can achieve high pr
 Therefore, further improvements on the Logistic Regression model or alternative models should be contemplated in further research.
 
 
-<div style="display: flex; justify-content: space-between;">
-  <figure style="width: 80%;">
-    ![Precision Recall Curve of Test Set Predictions](../results/figures/precision_recall_plot.png){#fig-test_pr width=60%}
-  </figure>
-  <figure style="width: 80%;">
-    ![ROC Curve of Test Set Predictions](../results/figures/roc_curve.png){#fig-test_roc width=60%}
-  </figure>
-</div>
+![Precision Recall Curve of Test Set Predictions](../results/figures/precision_recall_plot.png){#fig-test_pr width=60%}
+
+
+![ROC Curve of Test Set Predictions](../results/figures/roc_curve.png){#fig-test_roc width=60%}
 
 
 To improve the model's clinical utility, we provide a visualization of estimated prediction probabilities (@fig-test_pred_accur) for diabetes predictions. 

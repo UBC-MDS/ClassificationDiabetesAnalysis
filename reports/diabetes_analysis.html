@@ -190,7 +190,7 @@ Figure&nbsp;3: Pairwise scatterplots between each of features in dataset to visu
 Table&nbsp;1: Logistic regression feature importance measured by coefficients.
 </figcaption>
 <div aria-describedby="tbl-coeff_table-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="10">
+<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="24">
 <table class="do-not-create-environment cell caption-top table table-sm table-striped small">
 <thead>
 <tr class="header">
@@ -260,8 +260,6 @@ Figure&nbsp;4: Confusion Matrix of Test Set Prediction Accuracy
 </figure>
 </div>
 <p>In this report, we have used the default 0.5 threshold in Logistic Regression model to predict the patient being diabetic or non-diabetic. To better evaluate model’s performance across all thresholds, we also presented here the Precision Recall curve (<a href="#fig-test_pr" class="quarto-xref">Figure&nbsp;5</a>) and the ROC curve (<a href="#fig-test_roc" class="quarto-xref">Figure&nbsp;6</a>) - assessing the tradeoff between true positive and false positive rates. For both plots, we did not observe an optimal threshold that can achieve high precision, high recall, and low false positive rate all at once. Therefore, further improvements on the Logistic Regression model or alternative models should be contemplated in further research.</p>
-<div style="display: flex; justify-content: space-between;">
-<figure style="width: 80%;" class="figure">
 <div id="fig-test_pr" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-test_pr-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -272,8 +270,6 @@ Figure&nbsp;5: Precision Recall Curve of Test Set Predictions
 </figcaption>
 </figure>
 </div>
-</figure>
-<figure style="width: 80%;" class="figure">
 <div id="fig-test_roc" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-test_roc-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -282,8 +278,6 @@ Figure&nbsp;5: Precision Recall Curve of Test Set Predictions
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-test_roc-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;6: ROC Curve of Test Set Predictions
 </figcaption>
-</figure>
-</div>
 </figure>
 </div>
 <p>To improve the model’s clinical utility, we provide a visualization of estimated prediction probabilities (<a href="#fig-test_pred_accur" class="quarto-xref">Figure&nbsp;7</a>) for diabetes predictions. This allows clinicians to assess the model’s confidence in its predictions and decide whether additional diagnostic tests are needed if the probability is not sufficiently high. Visualizing these probabilities alongside prediction accuracy offers a clearer understanding of the model’s performance, highlighting both correct predictions and misdiagnoses, especially false negatives, which are of particular concern in a clinical setting due to their critical consequences.</p>
