@@ -43,6 +43,9 @@ def save_coefficients_table(best_model, X_train, results_to):
         'Features': feature_names,
         'Coefficients': coefficients
     })
+
+    # Rounding coefficients to 5 decimals for better presentation
+    coeff_df['Coefficients'] = coeff_df['Coefficients'].round(5)
     
     # Sorting by absolute value of coefficients for better interpretability
     coeff_df_sorted = coeff_df.reindex(coeff_df['Coefficients'].abs().sort_values(ascending=False).index)

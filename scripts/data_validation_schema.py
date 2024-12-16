@@ -30,7 +30,7 @@ def main(raw_data, data_to):
     # validate data
     # Configure logging
     logging.basicConfig(
-        filename="validation_errors.log",
+        filename=os.path.join("reports", "validation_errors.log"),
         filemode="w",
         format="%(asctime)s - %(message)s",
         level=logging.INFO,
