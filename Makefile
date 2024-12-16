@@ -39,9 +39,9 @@ data/processed/diabetes_validated.csv
 # Fit logistic regression model and save results
 results/models/log_pipe.pkl \
 results/models/random_fit.pkl \
-results/tables/mean_cv_score.csv \ 
+results/tables/mean_cv_score.csv \
 results/tables/best_params.csv: scripts/preprocessing_model_fitting.py \
-data/processed/X_train.csv \ 
+data/processed/X_train.csv \
 data/processed/y_train.csv
 	python scripts/preprocessing_model_fitting.py \
 		--processed-dir ./data/processed \
@@ -58,10 +58,10 @@ results/tables/fp_fn_df.csv \
 results/figures/confusion_matrix_plot \
 results/figures/precision_recall_plot \
 results/figures/roc_curve \
-results/figures/predict_chart.png: scripts/evaluate_predictor.py \ 
+results/figures/predict_chart.png: scripts/evaluate_predictor.py \
 data/processed/X_train.csv \
-data/processed/X_test.csv \ 
-data/processed/y_test.csv \ 
+data/processed/X_test.csv \
+data/processed/y_test.csv \
 results/models/random_fit.pkl
 	python scripts/evaluate_predictor.py \
 		--x-train-data='./data/processed/X_train.csv' \
