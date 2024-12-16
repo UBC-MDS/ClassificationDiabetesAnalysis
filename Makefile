@@ -50,14 +50,15 @@ data/processed/y_train.csv
 # Test the model and save results
 results/tables/mean_scores.csv \
 results/tables/coeff_table.csv \
+results/tables/coeff_table.html \
 results/tables/pred_results_1_df.csv \
 results/tables/test_scores_df.csv \
-results/tables/confusion_matrix_df \
+results/tables/confusion_matrix_df.csv \
 results/tables/value_counts_df.csv \
 results/tables/fp_fn_df.csv \
-results/figures/confusion_matrix_plot \
-results/figures/precision_recall_plot \
-results/figures/roc_curve \
+results/figures/confusion_matrix_plot.png \
+results/figures/precision_recall_plot.png \
+results/figures/roc_curve.png \
 results/figures/predict_chart.png: scripts/evaluate_predictor.py \
 data/processed/X_train.csv \
 data/processed/X_test.csv \
