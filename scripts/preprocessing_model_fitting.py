@@ -64,6 +64,7 @@ def main(processed_dir, results_dir):
     random_fit = random_search.fit(X_train, y_train)
 
     # Save the pipeline and RandomizedSearchCV results using save_model
+    os.makedirs(os.path.join(results_dir, 'models'), exist_ok=True)
     save_model(log_pipe, os.path.join(results_dir, 'models', 'log_pipe.pkl'))
     save_model(random_fit, os.path.join(results_dir, 'models', 'random_fit.pkl'))
 
