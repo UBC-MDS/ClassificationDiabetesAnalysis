@@ -86,6 +86,8 @@ def main(x_train_data, x_test_data, y_test_data, pipeline_from, results_to, plot
     accuracy = best_model.score(X_test, y_test)
 
     # Compute F2 score (beta = 2)
+    # Theoretically, this metric should be used to best evaluate the question
+    # However, due to restriction to use 571 materials only, score is calculated but not used in report
     f2_score = fbeta_score(y_test, y_pred, beta = 2, pos_label = 1)
 
     test_scores_df = pd.DataFrame({'accuracy': [accuracy], 'F2 score (beta = 2)': [f2_score]})
