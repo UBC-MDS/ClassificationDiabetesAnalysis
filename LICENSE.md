@@ -19,7 +19,7 @@ The licensor cannot revoke these freedoms as long as you follow the license term
 
 - **Attribution** — You must give appropriate credit (mentioning that your work is derived from work that is Copyright © Inder Khera, Jenny Zhang, Jessica Kuo, and Javier Martinez), provide a link to the license, and indicate if changes were made. You may do so in any reasonable manner, but not in any way that suggests the licensor endorses you or your use.
 
-- The following files are referenced from work provided by Tiffany A. Timbers in the [`breast_cancer_predictor_py` repository](https://github.com/ttimbers/breast-cancer-predictor/tree/3.0.0) and [`dsci522-dockerfile-practice repository`](https://github.com/ttimbers/dsci522-dockerfile-practice)
+- The following files are referenced from work provided by Tiffany A. Timbers in the [`breast_cancer_predictor_py repository`](https://github.com/ttimbers/breast-cancer-predictor/tree/3.0.0) and [`dsci522-dockerfile-practice repository`](https://github.com/ttimbers/dsci522-dockerfile-practice)
     - read_zip.py
     - test_read_zip.py
     - validate_diabetes_data.py
@@ -65,7 +65,7 @@ SOFTWARE.
 
 ---
 
-For the portions of the project that are derived from [`breast_cancer_predictor_py` repository](https://github.com/ttimbers/breast-cancer-predictor/tree/3.0.0) and [`dsci522-dockerfile-practice repository`](https://github.com/ttimbers/dsci522-dockerfile-practice):
+For the portions of the project that are derived from [`breast_cancer_predictor_py repository`](https://github.com/ttimbers/breast-cancer-predictor/tree/3.0.0) and [`dsci522-dockerfile-practice repository`](https://github.com/ttimbers/dsci522-dockerfile-practice):
 
 MIT License
 
