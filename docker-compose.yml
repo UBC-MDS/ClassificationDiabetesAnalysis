@@ -1,7 +1,7 @@
 services:
   # run jupyter notebook inside jupyter 
   jupyter-notebook:
-    image:  jk112358/diabetes_predictor_py:6d90b86
+    image:  jk112358/diabetes_predictor_py:816b877
     ports:
       - "8888:8888"
     volumes:
