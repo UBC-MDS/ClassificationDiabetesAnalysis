@@ -62,6 +62,7 @@ https://github.com/UBC-MDS/diabetes_predictor_py/blob/1a705b08226680570fc3a69c30
 https://github.com/UBC-MDS/diabetes_predictor_py/blob/1a705b08226680570fc3a69c30b76157eb03cc7d/reports/diabetes_analysis.qmd
 
 19. Certain numbers in the analysis report appear to be hard-coded. It is recommended to replace these with inline Python code.
+
 _NOTE: this was one of the peer review feedback received. However, proofreader has walked through the entire report and noticed that the only numbers remain hard coded are those cited from research report from introduction or any factual ranges related to data validation. All results related to analysis was properly transformed and linked. Providing the final report edit commit as reference._ 
 https://github.com/UBC-MDS/diabetes_predictor_py/commit/b14df6ce4f7e35fcb79ed94c6f1a060d111e43f6
 
@@ -72,27 +73,33 @@ https://github.com/UBC-MDS/diabetes_predictor_py/commit/b14df6ce4f7e35fcb79ed94c
 https://github.com/UBC-MDS/diabetes_predictor_py/pull/81/commits/5e37027e0bd5ab0fcb753ea19e1b3827c4a7656f
 
 2. the instructions for how to set up environment is missing a step to change into the cloned repository directory after cloning it. user will not be able to recreate the virtual environment if the "cd ..." part is missing (-0.5)
+
 _NOTE: already incorporated in earlier milestone. See a final commit link for final result._
 https://github.com/UBC-MDS/diabetes_predictor_py/blob/8f48f6b8df8812069e1933829a3ed2c35812d9bb/README.md
 
 3. `environment.yml`: versions are missing from environment files(s) for some R or Python packages (-1) 
+
 _NOTE: already incorporated in earlier milestone. See a final commit link for final result._
 https://github.com/UBC-MDS/diabetes_predictor_py/blob/019af1f5cd2dd1a33f9d79a0e1f90ad23c5f96fd/environment.yml
 
 4. `environment.yml`: Programming language and/or package versions are pinned using >= instead of =. This means that each time the environment is built in the future, the most recent version of the programming language and/or package will be installed in the environment. This will lead to the environment not being able to be reproducibly built in the future. (-1)
+
 _NOTE: already incorporated in earlier milestone. See a final commit link for final result._
 https://github.com/UBC-MDS/diabetes_predictor_py/blob/019af1f5cd2dd1a33f9d79a0e1f90ad23c5f96fd/environment.yml
 
 5. Reproducibility Miletone 1: I cannot find the "Python [conda env:diabetes-predictor" selection for kernel after following your instructions. (-1)
+
 _NOTE: no longer applicable and already fixed in Docker._
 
 6. Reproducibility Milestone 2:  instructions is a bit confusing if I am a complete new user to docker "Once the container is running, access the server by opening the link shown in the terminal (e.g., http://127.0.0.1:8888/lab?token={your_token})" => essentially including an image (-0.5)
 https://github.com/UBC-MDS/diabetes_predictor_py/pull/89/commits/ce885de6a3ca455b469ffe1ac7ac0f238f258214
 
 7. Workflow: branch name is not meaningful: kuo4230-patch-1 (-0.5)
+
 _NOTE: no longer applicable_
 
 8. Github issues communication: GitHub issues were rarely used for project communication. (-4)
+
 _NOTE: fixed since Milestone 2_
 
 ### Structure Related
@@ -104,6 +111,7 @@ https://github.com/UBC-MDS/diabetes_predictor_py/commit/fc9a16ddf22a873da8ff6579
 https://github.com/UBC-MDS/diabetes_predictor_py/commit/fabaabc17cb665b2e9b9d6a5ebf2a1d849431870
 
 3. The some of the processed data files are simply call df.csv and test_df.csv. I cannot tell what data is in the file. A more descriptive or meaningful name would be nice.
+
 _NOTE: this involves changes in multiple scripts so instead of pointing to the scripts, I am pointing to the commits where showcase generated files with new meaningful names_
 https://github.com/UBC-MDS/diabetes_predictor_py/commit/7994a29ba2be714390120beb7700eb567d6f84e8
 
