@@ -1,7 +1,7 @@
 ## CHANGELOG FOR GROUP 15
 
-Please see all feedback from TA through Milestone grading and peer review consolidated below. 
-Commit links as evidence of improvements and some description have also been included.
+Below, you'll find a summary of all feedback provided by the TA through the Milestone grading and peer review process. 
+Included are commit links as evidence of the improvements made, along with brief descriptions.
 
 ### Analysis and Code Related
 
